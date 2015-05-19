@@ -34,12 +34,12 @@ def box_web(request):
 def box_print(request):
     queryset = Contest.objects.filter(Q(region__name='National') | Q(region__name='Oregon')).exclude(name__regex=r'^\d\d$').order_by('region__name', 'contest_number')
     t = loader.get_template('ballot/box_list.html')
-    c = RequestContext(request, 
+    c = RequestContext(request,
         {
-            'object_list': queryset, 
-            'state_measures_list': lambda: Contest.objects.filter(name__regex=r'^\d\d$').order_by('name',), 
-            'lane_measures_list' : lambda: Contest.objects.filter(name__startswith='20-').order_by('name',), 
-            'regional_measures_list' : lambda: Contest.objects.filter(name__regex=r'^(6|10|21|)\-\d+').order_by('region__name', 'name'), 
+            'object_list': queryset,
+            'state_measures_list': lambda: Contest.objects.filter(name__regex=r'^\d\d$').order_by('name',),
+            'lane_measures_list' : lambda: Contest.objects.filter(name__startswith='20-').order_by('name',),
+            'regional_measures_list' : lambda: Contest.objects.filter(name__regex=r'^(6|10|21|)\-\d+').order_by('region__name', 'name'),
         }
     )
     data = t.render(c)
@@ -101,10 +101,10 @@ def main_print(request):
 def main_print(request):
     queryset = Contest.objects.filter(region__name='Eugene/Springfield').filter(print_only=True, contest_wrapper__isnull=False).exclude(name__regex=r'^\d\d\-').order_by('contest_wrapper', 'name')
     t = loader.get_template('ballot/main_list.html')
-    c = RequestContext(request, 
+    c = RequestContext(request,
         {
-            'object_list': queryset, 
-            'lane_county': lambda: Contest.objects.filter(region__name='Lane County', print_only=True, contest_wrapper__isnull=False).exclude(name__regex=r'^\d\d+').order_by('contest_wrapper', 'name'), 
+            'object_list': queryset,
+            'lane_county': lambda: Contest.objects.filter(region__name='Lane County', print_only=True, contest_wrapper__isnull=False).exclude(name__regex=r'^\d\d+').order_by('contest_wrapper', 'name'),
             'region': lambda: Contest.objects.filter(region__name='Region').exclude(is_race=False).order_by('contest_wrapper', 'name'),
         }
     )
@@ -129,24 +129,25 @@ def print_file(request):
         queryset = Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
         template_name = 'ballot/20110517-print.html',
 #         mimetype = 'text/plain;charset=utf-8',
-        mimetype = 'text/plain;charset=utf-16le',
+        mimetype = 'text/plain',
     )
-    
+
+    resp = resp.encode('utf-16le')
     resp['Content-Disposition'] = 'attachment; filename=election-results.txt'
     return resp
 
 # @never_cache
 def json_results(request, **kwargs):
-    
+
     queryset = []
     race_queryset = []
     meas_queryset = []
     queryset_dict = {}
-    
+
     # Check for region-specific URL request
     if 'geo' in kwargs:
         geography = kwargs['geo']
-        
+
         if geography == 'eugspr':
             if cache.get('eugspr'):
                 queryset = cache.get('eugspr')
@@ -154,11 +155,11 @@ def json_results(request, **kwargs):
                 queryset = Contest.objects.filter(region__name='Eugene/Springfield').order_by('contest_number')
                 cache.set('laneco', queryset, 60 * 60)
             queryset_dict['options'] = queryset
-        
+
         # if geography == 'eugspr':
         #     queryset = Contest.objects.filter(region__name='Eugene/Springfield').order_by('contest_number')
         #     queryset_dict['options'] = queryset
-        
+
         # Lane County races
         if geography == 'laneco':
             if cache.get('laneco'):
@@ -167,7 +168,7 @@ def json_results(request, **kwargs):
                 queryset = Contest.objects.filter(region__name='Lane County').exclude(name__startswith='20-').order_by('contest_number')
                 cache.set('laneco', queryset, 60 * 60)
             queryset_dict['options'] = queryset
-        
+
         # Any non-state, non-Lane County races, measures we cover
         if geography == 'region':
             if cache.get('region'):
@@ -176,7 +177,7 @@ def json_results(request, **kwargs):
                 queryset = Contest.objects.filter(region__name='Region').order_by('contest_number')
                 cache.set('region', queryset, 60 * 60)
             queryset_dict['options'] = queryset
-        
+
         # Lane County measures
         if geography == 'laneme':
             if cache.get('laneme'):
@@ -185,7 +186,7 @@ def json_results(request, **kwargs):
                 queryset = Contest.objects.filter(region__name='Lane County', name__startswith='20-').order_by('contest_number')
                 cache.set('laneme', queryset, 60 * 60)
             queryset_dict['options'] = queryset
-        
+
         # State races; Lane County votes, state votes
         if geography == 'stater':
             if cache.get('stater'):
@@ -194,7 +195,7 @@ def json_results(request, **kwargs):
                 queryset = Contest.objects.filter(statewide=True).exclude(name__regex=r'^\d\d$').order_by('contest_number')
                 cache.set('stater', queryset, 60 * 60)
             queryset_dict['options'] = queryset
-        
+
         # State measures; Lane County votes, state votes
         if geography == 'statem':
             if cache.get('statem'):
@@ -203,7 +204,7 @@ def json_results(request, **kwargs):
                 queryset = Contest.objects.filter(statewide=True, name__regex=r'^\d\d$').order_by('contest_number')
                 cache.set('statem', queryset, 60 * 60)
             queryset_dict['options'] = queryset
-        
+
         # Top two races, top three measures
         if geography == 'topset':
             race_queryset = Contest.objects.filter(is_race=True, web_front=True)
@@ -213,11 +214,11 @@ def json_results(request, **kwargs):
     else:
         queryset = Contest.objects.filter(contest_wrapper__isnull=False).order_by('contest_wrapper', 'name')
         queryset_dict['options'] = queryset
-        
+
     json_list = []
     wrap_json_list = []
     '''
-    queryset_dict = 
+    queryset_dict =
     {
         'measure': [<Contest: State Measure 90>, <Contest: State Measure 91>, <Contest: State Measure 92>],
         'race': [<Contest: U.S. Senate >, <Contest: Governor >]
@@ -249,9 +250,9 @@ def json_results(request, **kwargs):
                              'short_description': contest_queryset.short_contest_description,
                              contest_key: cand_yes_no_list
                              })
-        
+
         if len(queryset_dict.keys()) > 1:
-            # More than one key means a 'measure', 'race' combination keyed 
+            # More than one key means a 'measure', 'race' combination keyed
             # dictionary for the top of the page
             wrap_json_list.append({
                                 '%s%s' % (contest_key, 's'): json_list
@@ -260,52 +261,52 @@ def json_results(request, **kwargs):
             json_list = []
         else:
             wrap_json_list = json_list
-        
+
 #     json_data = simplejson.dumps(json_list, indent=2)
     json_data = simplejson.dumps(wrap_json_list, indent=2)
-    
+
     # if geography == 'eugspr':
     #     if cache.get('eugspr'):
     #         json_data = cache.get('eugspr')
     #     else:
     #         cache.set('laneco', json_data, 60 * 60)
-    
+
     # if geography == 'laneco':
     #     if cache.get('laneco'):
     #         json_data = cache.get('laneco')
     #     else:
     #         cache.set('region', json_data, 60 * 60)
-    
+
     # if geography == 'region':
     #     if cache.get('region'):
     #         json_data = cache.get('region')
     #     else:
     #         cache.set('eugspr', json_data, 60 * 60)
-    
+
     # if geography == 'eugspr':
     #     if cache.get('eugspr'):
     #         json_data = cache.get('eugspr')
     #     else:
     #         cache.set('eugspr', json_data, 60 * 60)
-    
+
     # if geography == 'eugspr':
     #     if cache.get('eugspr'):
     #         json_data = cache.get('eugspr')
     #     else:
     #         cache.set('eugspr', json_data, 60 * 60)
-    
+
     # if geography == 'eugspr':
     #     if cache.get('eugspr'):
     #         json_data = cache.get('eugspr')
     #     else:
     #         cache.set('eugspr', json_data, 60 * 60)
-    
+
     # if geography == 'eugspr':
     #     if cache.get('eugspr'):
     #         json_data = cache.get('eugspr')
     #     else:
     #         cache.set('eugspr', json_data, 60 * 60)
-    
+
     callback = request.GET.get('callback')
     if callback:
         response = HttpResponse('%s(%s)' % (callback, json_data), mimetype='application/javascript')
@@ -315,14 +316,14 @@ def json_results(request, **kwargs):
 
 def json_wire_stories(request, **kwargs):
     current_site = Site.objects.get(id=settings.SITE_ID)
-    
+
     if 'story_count' in kwargs:
         story_count = kwargs['story_count']
     else:
         story_count = 5
     # queryset = APStory.objects.filter(category=23, consumer_ready=True, slug__regex=r'^us-+|or-+|wa-+|id-+')[:story_count]
     queryset = APStory.objects.filter(category=23, consumer_ready=True, slug__regex=r'^[uowi][srad]-+').exclude(slug__endswith='-trend')[:story_count]
-    
+
     story_list = []
     for story in queryset:
         first_image_thumb = None
@@ -331,7 +332,7 @@ def json_wire_stories(request, **kwargs):
         else:
             dateline_city = story.location
             dateline_state = ''
-        
+
         dateline_city.strip()
         dateline_state.strip()
 
@@ -348,9 +349,9 @@ def json_wire_stories(request, **kwargs):
                           'first_image_thumb_url': getattr(first_image_thumb, 'url', '')
                           })
     json_data = simplejson.dumps(story_list, indent=2)
-    
-    
-    
+
+
+
     callback = request.GET.get('callback')
     if callback:
         response = HttpResponse('%s(%s)' % (callback, json_data), mimetype='application/javascript')
