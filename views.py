@@ -124,15 +124,22 @@ def main_print(request):
 #     )
 
 def print_file(request):
-    resp = object_list(
-        request,
-        queryset = Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
-        template_name = 'ballot/20110517-print.html',
-#         mimetype = 'text/plain;charset=utf-8',
-        mimetype = 'text/plain',
-    )
+    # resp = object_list(
+    #     request,
+    #     queryset = Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
+    #     template_name = 'ballot/20110517-print.html',
+    #     mimetype = 'text/plain',
+    # )
 
-    resp.content = resp.content.encode('utf-16le')
+    # Hoops jumped through to encode response
+    queryset = Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
+    template_name = 'ballot/20110517-print.html',
+    mimetype = 'text/plain',
+    t = loader.get_template(template_name)
+    c = RequestContext(request, {'object_list': queryset })
+    data = t.render(c)
+    data = data.encode('utf-16le')
+    resp = HttpResponse(data, mimetype=mimetype)
     resp['Content-Disposition'] = 'attachment; filename=election-results.txt'
     return resp
 
