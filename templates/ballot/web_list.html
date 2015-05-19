@@ -1,0 +1,99 @@
+{#{% extends "base.html" %}#}
+
+{% load humanize %}
+
+{#{% block content %}#}
+{% if object_list %}
+<h2 class="reverse reverse1">Unofficial Lane County results</h2>
+<div>
+	<table>
+	{# <caption style="margin-top: 0px;"><span>Final unofficial Lane County results<br /><a href="http://projects.registerguard.com/ballot/results/full/" title="Complete local results">Local, statewide candidates & ballot measures</a></span></caption> #}
+	{# <caption style="margin-top: 0px;"><span>Final unofficial Lane County results<br /><a href="http://projects.registerguard.com/ballot/results/full/" title="Complete local results">Lane County results</a></span></caption> #}
+		{% for contest in object_list %}
+			{% if contest.web_front %}
+			<thead>
+				<tr>
+					<th colspan="5" scope="col">{% if contest.contest_wrapper.name %}{{ contest.contest_wrapper.name }}{% endif %}{% if contest.contest_wrapper.name and contest.name %} -{% endif %} {{ contest.name }}{% if contest.explainer_text %} {{ contest.explainer_text }}{% endif %}</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					{% if contest.statewide %}
+					<th scope="col">&nbsp;</th>
+					<th scope="col">Lane votes</th>
+					<th scope="col">Lane %</th>
+					
+					<th scope="col">Oregon votes</th>
+					<th scope="col">Oregon %</th>
+					
+					{% comment %}
+					<!-- One-time hack for the May 17, 2011, special election -->
+					<!-- Uncomment this section and delete the "Linn ... " bits below! - JPH -->
+					<th scope="col">Linn votes</th>
+					<th scope="col">Linn %</th>
+					{% endcomment %}
+					
+					{% else %}
+					<th scope="col" colspan="3">&nbsp;</th>
+{#					<th scope="col">Lane votes</th> #}
+{#					<th scope="col">Lane %</th> #}
+					<th scope="col">Votes</th>
+					<th scope="col">Percentage</th>
+					{% endif %}
+				</tr>
+			{% for candidate in contest.cand_yes_no_set.all %}
+				{% ifnotequal candidate.name "write-in" %}
+				{% ifnotequal candidate.name "over votes" %}
+				{% ifnotequal candidate.name "under votes" %}
+				<tr class="{% cycle 'odd' 'even' %}">
+					{% if contest.statewide %}
+					<td>
+						{{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}) {% endif %}{% if candidate.incumbent %}*{% endif %}
+					</td>
+					<td>
+						{{ candidate.votes_local|intcomma }}
+					</td>
+					<td>
+						{{ candidate.local_percent}}
+					</td>
+					<td>
+						{{ candidate.votes_other|intcomma }}
+					</td>
+					<td>
+						{{ candidate.other_percent }}
+					</td>
+					{% else %}
+					<td colspan="3">
+						{{ candidate.name }}{% if candidate.incumbent %}*{% endif %}
+					</td>
+					<td>
+						{{ candidate.votes_local|intcomma }}
+					</td>
+					<td>
+						{{ candidate.local_percent}}
+					</td>
+					{% endif %}
+				</tr>
+				{% endifnotequal %}
+				{% endifnotequal %}
+				{% endifnotequal %}
+			{% endfor %}
+			</tbody>
+			{% endif %}
+		{% endfor %}
+		</tr>
+		</tbody>
+		{% comment %}
+		<tfoot>
+			<tr class="odd ref">
+				<th colspan="e" scope="col">* - incumbent</th>
+			</tr>
+		</tfoot>
+		{% endcomment %}
+	</table>
+	{# <p><small>* - incumbent</small></p> #}
+	<hr>
+	<p class="jump jump1"><a href="http://projects.registerguard.com/ballot/results/full/" title="Complete local results">Other <span>Lane County</span> results &raquo;</a></p>
+</div>
+{% endif %}
+{#{% endblock content %}#}

@@ -1,0 +1,43 @@
+{% load humanize %}<UNICODE-MAC>
+<Version:5><FeatureSet:InDesign-Roman><ColorTable:=<Paper:COLOR:CMYK:Process:0,0,0,0><Black:COLOR:CMYK:Process:0,0,0,1>>
+<DefineParaStyle:StandingHeads\:Style\_8\_ReverseBar-1=<cColor:Paper><cTypeface:Black><cSize:10.000000><cCase:All Caps><pAutoLeadPercent:1.000000><pSpaceAfter:10.000000><cFont:PoynterGothicTextCond><pRuleAboveColor:Black><pRuleAboveStroke:0.500000><pRuleAboveOffset:11.000000><pRuleBelowColor:Black><pRuleBelowStroke:12.000000><pRuleBelowOffset:-9.500000><pRuleBelowOn:1><pTextAlignment:Center>>
+<DefineParaStyle:QuickFacts\:News\_Elect\_blackCondheader-1=<Nextstyle:QuickFacts\:News\_Elect\_blackCondheader-1><cTypeface:Black><cSize:10.000000><pHyphenationLadderLimit:2><pAutoLeadPercent:1.000000><cLeading:10.000000><pHyphenation:0><pMinCharBeforeHyphen:3><pMinCharAfterHyphen:3><pShortestWordHyphenated:7><cFont:PoynterGothicTextCond><cFigureStyle:Tabular Lining><cHang:Baseline><cColorTint:100.000000><cSkew:-0.000000>>
+<DefineParaStyle:QuickFacts\:News\_Elect\_text-1=<Nextstyle:QuickFacts\:News\_Elect\_text-1><cSize:8.500000><cTracking:-3><pHyphenationLadderLimit:2><pAutoLeadPercent:1.000000><cLeading:8.600000><pHyphenation:0><pMinCharBeforeHyphen:3><pMinCharAfterHyphen:3><pHyphenateCapitals:0><pShortestWordHyphenated:7><pSpaceAfter:2.000000><pTabRuler:131\,Right\,.\,0\,.\;><cFont:PoynterGothicText><cFigureStyle:Tabular Lining><cHang:Baseline><cColorTint:100.000000><cSkew:-0.000000>>
+{% autoescape off %}{% if object_list %}{% for contest in object_list %}{% if forloop.first %}<ParaStyle:StandingHeads\:Style\_8\_ReverseBar-1>NATIONAL AND STATE
+<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader-1><pTabRuler:182\,Right\,.\,0\,\;217\,Right\,.\,0\,\;253\,Right\,.\,0\,\;>{{ contest.name|upper }}	Lane	State	National{% for candidate in contest.cand_yes_no_set.all %}{% ifnotequal candidate.name "write-in" %}{% ifnotequal candidate.name "over votes" %}{% ifnotequal candidate.name "under votes" %}
+<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_text-1><pTabRuler:182\,Right\,.\,0\,.\;217\,Right\,.\,0\,\;253\,Right\,.\,0\,\;>{{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}){% endif %}	{{ candidate.votes_local|intcomma }}	{{ candidate.votes_other|intcomma }}{% ifequal contest.contest_number 1000 %}	{{ candidate.votes_national|intcomma }}{% endifequal %}{% endifnotequal %}{% endifnotequal %}{% endifnotequal %}{% endfor %}<cNextXChars:Box>{% else %}{% if not contest.measure %}{% ifchanged contest.contest_wrapper.name %}{% if contest.contest_wrapper.name %}<pRightIndent:><pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_blackCondheader-1><pRightIndent:0.428499><pTabRuler:204\,Right\,.\,0\,\;250\,Right\,.\,0\,\;254\,Right\,.\,0\,\;>{{ contest.contest_wrapper.name|upper }}	Lane	State{% endif %}{% endifchanged %}<pRightIndent:><pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_blackCondheader-1><pRightIndent:0.428499><pTabRuler:204\,Right\,.\,0\,\;250\,Right\,.\,0\,\;254\,Right\,.\,0\,\;>{{ contest.name }}
+					{% for candidate in contest.cand_yes_no_set.all %}
+						{% ifnotequal candidate.name "write-in" %}{% ifnotequal candidate.name "over votes" %}{% ifnotequal candidate.name "under votes" %}
+							<pRightIndent:><pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_text-1><pRightIndent:0.428499><pTabRuler:204\,Right\,.\,0\,.\;250\,Right\,.\,0\,\;254\,Right\,.\,0\,\;>{{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}){% endif %}	{{ candidate.votes_local|intcomma }}	{{ candidate.votes_other|intcomma }}{% ifequal contest.contest_number 1000 %}	{{ candidate.votes_national }}%{% endifequal %}
+						{% endifnotequal %}{% endifnotequal %}{% endifnotequal %}
+					{% endfor %}
+			{% else %}
+				{% ifequal contest.contest_number 1410 %}<pRightIndent:><pTabRuler:><ParaStyle:StandingHeads\:Style\_8\_ReverseBar-1>MEASURES
+				<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader-1><pTabRuler:368\,Left\,.\,0\,\;402\,Left\,.\,0\,\;492\,Left\,.\,0\,\;>		Lane County	State
+				<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_blackCondheader-1><pTabRuler:306\,Right\,.\,0\,\;412\,Right\,.\,0\,\;446\,Right\,.\,0\,\;480\,Right\,.\,0\,\;513\,Right\,.\,0\,\;>STATE		Yes	No	Yes	No{% endifequal %}
+				<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_text-1><pTabRuler:26\,Left\,.\,0\,\;413\,Right\,.\,0\,.\;446\,Right\,.\,0\,\;480\,Right\,.\,0\,\;513\,Right\,.\,0\,\;>{{ contest.name }} —	{{ contest.explainer_text }}	{% for vote in contest.cand_yes_no_set.all %}{% ifequal vote.name "Yes" %}{{ vote.votes_local|intcomma }}{% endifequal %}{% endfor %}	{% for vote in contest.cand_yes_no_set.all %}{% ifequal vote.name "No" %}{{ vote.votes_local|intcomma }}{% endifequal %}{% endfor %}{% if contest.statewide %}	{% for vote in contest.cand_yes_no_set.all %}{% ifequal vote.name "Yes" %}{{ vote.votes_local|intcomma }}{% endifequal %}{% endfor %}	{% for vote in contest.cand_yes_no_set.all %}{% ifequal vote.name "No" %}{{ vote.votes_local|intcomma }}{% endifequal %}{% endfor %}{% endif %}
+			{% endif %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+{% if lane_measures_list %}
+	{% for measure in lane_measures_list %}
+		{% if forloop.first %}<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_blackCondheader-1><pSpaceBefore:5.000000><pTabRuler:306\,Right\,.\,0\,\;478\,Right\,.\,0\,\;513\,Right\,.\,0\,\;>LANE COUNTY		Yes	No
+			<pSpaceBefore:><pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_text-1><pTabRuler:29\,Left\,.\,0\,\;42\,Left\,.\,0\,\;477\,Right\,.\,0\,.\;514\,Right\,.\,0\,\;>{{ measure.name }} —	{{ measure.explainer_text }}	{% for vote in measure.cand_yes_no_set.all %}{% ifequal vote.name "Yes" %}{{ vote.votes_local|intcomma }}{% endifequal %}{% endfor %}	{% for vote in measure.cand_yes_no_set.all %}{% ifequal vote.name "No" %}{{ vote.votes_local|intcomma }}{% endifequal %}{% endfor %}
+		{% else %}
+			<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_text-1><pTabRuler:29\,Left\,.\,0\,\;42\,Left\,.\,0\,\;477\,Right\,.\,0\,.\;514\,Right\,.\,0\,\;>{{ measure.name }} —	{{ measure.explainer_text }}	{% for vote in measure.cand_yes_no_set.all %}{% ifequal vote.name "Yes" %}{{ vote.votes_local|intcomma }}{% endifequal %}{% endfor %}	{% for vote in measure.cand_yes_no_set.all %}{% ifequal vote.name "No" %}{{ vote.votes_local|intcomma }}{% endifequal %}{% endfor %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+{% if regional_measures_list %}
+	{% for measure in regional_measures_list %}
+		{% if forloop.first %}<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_blackCondheader-1><pSpaceBefore:5.000000><pTabRuler:306\,Right\,.\,0\,\;478\,Right\,.\,0\,\;513\,Right\,.\,0\,\;>REGIONAL		Yes	No
+			<pSpaceBefore:><pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_blackCondheader-1><pTabRuler:306\,Right\,.\,0\,\;478\,Right\,.\,0\,\;513\,Right\,.\,0\,\;>{{ measure.contest_wrapper.name }}
+			<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_text-1><pTabRuler:29\,Left\,.\,0\,\;42\,Left\,.\,0\,\;477\,Right\,.\,0\,.\;514\,Right\,.\,0\,\;>{{ measure.name }} —	{{ measure.explainer_text }}	{% for vote in measure.cand_yes_no_set.all %}{% ifequal vote.name "Yes" %}{{ vote.votes_local|intcomma }}{% endifequal %}{% endfor %}	{% for vote in measure.cand_yes_no_set.all %}{% ifequal vote.name "No" %}{{ vote.votes_local|intcomma }}{% endifequal %}{% endfor %}
+		{% else %}
+			{% ifchanged %}{% ifnotequal measure.contest_wrapper.name "Lincoln County" %}<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_blackCondheader-1><pTabRuler:306\,Right\,.\,0\,\;478\,Right\,.\,0\,\;513\,Right\,.\,0\,\;>{{ measure.contest_wrapper.name }}{% endifnotequal %}{% endifchanged %}
+			<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_text-1><pTabRuler:29\,Left\,.\,0\,\;42\,Left\,.\,0\,\;477\,Right\,.\,0\,.\;514\,Right\,.\,0\,\;>{{ measure.name }} —	{{ measure.explainer_text }}	{% for vote in measure.cand_yes_no_set.all %}{% ifequal vote.name "Yes" %}{{ vote.votes_local|intcomma }}{% endifequal %}{% endfor %}	{% for vote in measure.cand_yes_no_set.all %}{% ifequal vote.name "No" %}{{ vote.votes_local|intcomma }}{% endifequal %}{% endfor %}
+		{% endif %}
+	{% endfor %}
+{% endif %}<pTabRuler:>
+{% endautoescape %}

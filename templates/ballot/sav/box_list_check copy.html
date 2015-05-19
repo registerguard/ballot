@@ -1,0 +1,35 @@
+{% load humanize %}
+<link rel="stylesheet" type="text/css" media="screen,projection" href="http://assets.registerguard.com/v3/css/registerguard.css">
+<div class="c990 am">
+{% if object_list %}
+	{% for contest in object_list %}
+		{% if forloop.first %}<h2>NATIONAL AND STATE</h2>{% endif %}
+		{% if not contest.measure %}
+			{% ifchanged contest.contest_wrapper.name %}<p>{{ contest.contest_wrapper.name|upper }}</p>{% endifchanged %}
+			<p>{{ contest.name }}{% if forloop.first %}	Lane	State	National{% endif %}</p>
+				{% for candidate in contest.cand_yes_no_set.all %}
+					{% ifnotequal candidate.name "write-in" %}{% ifnotequal candidate.name "over votes" %}{% ifnotequal candidate.name "under votes" %}
+						{{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}){% endif %}	Lane: {{ candidate.local_percent }}%	State: {{ candidate.other_percent }}%{% ifequal contest.contest_number 1000 %}	National: {{ candidate.votes_national }}%{% endifequal %}</p>
+					{% endifnotequal %}{% endifnotequal %}{% endifnotequal %}
+				{% endfor %}
+		{% else %}
+			{% ifequal contest.contest_number 1410 %}<h2>MEASURES</h2>
+			<h3>STATE</h3>{% endifequal %}
+			<p>{{ contest.name }} &mdash; {{ contest.explainer_text }}	Yes: {% for vote in contest.cand_yes_no_set.all %}{% ifequal vote.name "Yes" %}{{ vote.local_percent }}%{% endifequal %}{% endfor %}	No: {% for vote in contest.cand_yes_no_set.all %}{% ifequal vote.name "No" %}{{ vote.local_percent }}%{% endifequal %}{% endfor %}{% if contest.statewide %}	Yes: {% for vote in contest.cand_yes_no_set.all %}{% ifequal vote.name "Yes" %}{{ vote.local_percent }}%{% endifequal %}{% endfor %}	No: {% for vote in contest.cand_yes_no_set.all %}{% ifequal vote.name "No" %}{{ vote.local_percent }}%{% endifequal %}{% endfor %}{% endif %}</p>
+		{% endif %}
+	{% endfor %}
+{% endif %}
+{% if lane_measures_list %}
+	{% for measure in lane_measures_list %}
+		{% if forloop.first %}<h3>LANE COUNTY</h3>{% endif %}
+			<p>{{ measure.name }} &mdash; {{ measure.explainer_text }}	Yes: {% for vote in measure.cand_yes_no_set.all %}{% ifequal vote.name "Yes" %}{{ vote.local_percent }}%{% endifequal %}{% endfor %}	No: {% for vote in measure.cand_yes_no_set.all %}{% ifequal vote.name "No" %}{{ vote.local_percent }}%{% endifequal %}{% endfor %}</p>
+	{% endfor %}
+{% endif %}
+{% if regional_measures_list %}
+	{% for measure in regional_measures_list %}
+		{% if forloop.first %}<h3>REGIONAL</h3>{% endif %}
+			{% ifchanged %}<h5>{{ measure.contest_wrapper.name }}</h5>{% endifchanged %}
+				<p>{{ measure.name }} &mdash; {{ measure.explainer_text }}	Yes: {% for vote in measure.cand_yes_no_set.all %}{% ifequal vote.name "Yes" %}{{ vote.local_percent }}%{% endifequal %}{% endfor %}	No: {% for vote in measure.cand_yes_no_set.all %}{% ifequal vote.name "No" %}{{ vote.local_percent }}%{% endifequal %}{% endfor %}</p>
+	{% endfor %}
+{% endif %}
+</div>

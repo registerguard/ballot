@@ -1,0 +1,80 @@
+{% load humanize %}
+
+{% if object_list %}
+<table class="table1" summary="Election results." style="width:488px;margin:0 auto;">
+	{% regroup object_list by region.name as region_races %}
+		{% for region_race in region_races %}
+			<tr>
+				<th colspan="5">{{ region_race.grouper }}</th>
+			</tr>
+			<tbody>
+				{% regroup region_race.list by contest_wrapper as partisan_race %}
+				{% for race in partisan_race %}
+					{% for contest in race.list %}
+						{% if contest.web_front %}
+							<tr>
+								<td colspan="5" class="contest_name">{% if race.grouper %}{{ race.grouper }} {% endif %}{{ contest.name }}</td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td>Local votes</td>
+								<td>Local percentage</td>
+								{% if contest.statewide %}
+									<td>State count</td>
+									<td>State percentage</td>
+								{% else %}
+										<td>
+										</td>
+										<td>
+										</td>
+								{% endif %}
+							</tr>
+							{% for candidate in contest.cand_yes_no_set.all %}
+								{% ifnotequal candidate.name "write-in" %}
+								{% ifnotequal candidate.name "over votes" %}
+								{% ifnotequal candidate.name "under votes" %}
+								<tr class="{% cycle 'odd' '' %}">
+									<td>
+									{{ candidate.name }}{% if candidate.incumbent %}*{% endif %}
+									</td>
+									<td>
+									{{ candidate.votes_local|intcomma }}
+									</td>
+									<td>
+									{{ candidate.local_percent }}%
+									</td>
+									{% if contest.statewide %}
+										<td>
+										{{ candidate.votes_other|intcomma }}
+										</td>
+										<td>
+										{{ candidate.other_percent }}%
+										</td>
+									{% else %}
+										<td>
+										</td>
+										<td>
+										</td>
+									{% endif %}
+								</tr>
+								{% endifnotequal %}
+								{% endifnotequal %}
+								{% endifnotequal %}
+							{% endfor %}
+							<tr>
+								<td><b>Vote totals</b></td>
+								<td>{{ contest.local_vote_total|intcomma }}</td>
+								<td>&nbsp;</td>
+								{% if contest.statewide %}
+									<td>{{ contest.other_vote_total|intcomma }}</td>
+									<td>&nbsp;</td>
+								{% endif %}
+							</tr>
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+		{% endfor %}
+	</tbody>
+	</tr>
+</table>
+{% endif %}

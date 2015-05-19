@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load cache %}
+{% load humanize %}
+
+{% block title %}Unofficial Lane County results for the May 18, 2010, primary | {% endblock %}
+
+{% block css %}
+<style type="text/css">
+<!--
+.table1 tbody tr.race_wrapper td {
+	color: #ffffff;
+	background-color: #2D3138;
+}
+-->
+</style>
+
+{% endblock %}
+
+{% block pub_date %}
+<div class="c49p fr">
+	<div class="published"><p>Published: {% now "l, N j, Y @ g:i a T" %}
+	</p></div>
+</div> <!-- /.c49p -->
+{% endblock %}
+
+{% block home %}: Election 2010{% endblock %}
+
+{% block headline %}Unofficial Lane County results for the Nov. 4, 2008, general election{% endblock %}
+
+{% block content %}
+<div id="primary" class="c630 fl mr10">
+<!-- ##### BEGIN PRIMARY COLUMN ##### -->
+	<!-- <h3 class="sep">Flag a comment</h3> -->
+	<div class="rack">
+			<div class="clear">
+
+
+	{% if object_list %}
+	<table class="tabular v1">
+		<tbody>
+	{% regroup object_list by region.name as region_races %}
+		{% for region_race in region_races %}
+		<tr>
+			<th colspan="5" scope="col">{{ region_race.grouper }}</th>
+		</tr>
+			{% regroup region_race.list by contest_wrapper as partisan_race %}
+				{% for race in partisan_race %}
+				{% if race.grouper %}
+				<tr class="race_wrapper">
+					<td colspan="5" style="text-align: center;"><strong>{{ race.grouper }}</strong></td>
+				</tr>
+				{% endif %}
+				{% for contest in race.list %}
+					{# {% if contest.print_only %} #}
+					<tr>
+						<td colspan="5" class="contest_name" style="text-align: center;" id="{{ contest.name|slugify }}"><strong>{{ contest.name }}</strong>{% if contest.explainer_text %} &mdash; {{ contest.explainer_text }}{% endif %}{% if contest.precincts_counted %}<br>
+						({{ contest.precincts_counted }} of {{ contest.precincts }} Lane County precincts counted){% endif %}</td>
+					</tr>
+					<tr>
+						{% if contest.statewide %}
+						<td>&nbsp;</td>
+						<td>Local votes</td>
+						<td>Local percentage</td>
+						<td>State count</td>
+						<td>State percentage</td>
+						{% else %}
+						<td colspan="3">&nbsp;</td>
+						<td>Local votes</td>
+						<td>Local percentage</td>
+						{% endif %}
+					</tr>
+					{% for candidate in contest.cand_yes_no_set.all %}
+						<tr class="{% cycle 'odd' 'even	' %}">
+							{% if contest.statewide %}
+							<td>
+							{{ candidate.name|capfirst }}{% if candidate.incumbent %}*{% endif %}
+							</td>
+							<td>
+							{{ candidate.votes_local|intcomma }}
+							</td>
+							<td>
+							{{ candidate.local_percent }}%
+							</td>
+							<td>
+							{{ candidate.votes_other|intcomma }}
+							</td>
+							<td>
+							{{ candidate.other_percent }}%
+							</td>
+							{% else %}
+							<td colspan="3">
+							{{ candidate.name|capfirst }}{% if candidate.incumbent %}*{% endif %}
+							</td>
+							<td>
+							{{ candidate.votes_local|intcomma }}
+							</td>
+							<td>
+							{{ candidate.local_percent }}%
+							</td>
+							{% endif %}
+						</tr>
+					{% endfor %}
+					<tr>
+						{% if contest.statewide %}
+						<td><b>Vote totals</b></td>
+						<td>{{ contest.local_vote_total|intcomma }}</td>
+						<td>&nbsp;</td>
+						<td>{{ contest.other_vote_total|intcomma }}</td>
+						<td>&nbsp;</td>
+						{% else %}
+						<td colspan="3"><b>Vote totals</b></td>
+						<td>{{ contest.local_vote_total|intcomma }}</td>
+						<td>&nbsp;</td>
+						{% endif %}
+					</tr>
+					{# {% endif %} #}
+				{% endfor %}
+				{% endfor %}
+		{% endfor %}
+	</tbody>
+	</table>
+	{% endif %}
+
+			</div> <!-- /.clear -->
+	</div> <!-- /.nw -->
+<!-- ##### END PRIMARY COLUMN ##### -->
+</div> <!-- /#primary /.c630 fl mr10-->
+{% endblock %}

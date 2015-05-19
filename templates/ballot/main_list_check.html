@@ -1,0 +1,114 @@
+{% load humanize %}
+<link rel="stylesheet" type="text/css" media="screen,projection" href="http://assets.registerguard.com/v3/css/registerguard.css">
+<div class="c990 am">
+{% if object_list %}
+<h3>Lane County</h3>
+	{% for contest in object_list %}
+		{% if contest.print_only %}
+			{% if not contest.measure %}
+				{% if contest.contest_wrapper.name %}
+					{% ifchanged contest.contest_wrapper.name %}<p><strong>{{ contest.contest_wrapper.name|upper }}</strong></p>{% endifchanged %}
+					<p><strong>{{ contest.name }}</strong></p>
+				{% else %}
+					<p><strong>{{ contest.name|upper }}</strong></p>
+				{% endif %}
+				{% for candidate in contest.cand_yes_no_set.all %}
+					{% ifnotequal candidate.name "write-in" %}{% ifnotequal candidate.name "over votes" %}{% ifnotequal candidate.name "under votes" %}
+						<p>{{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}){% endif %}	{{ candidate.votes_local|intcomma }}</p>
+					{% endifnotequal %}{% endifnotequal %}{% endifnotequal %}
+				{% endfor %}
+			{% endif %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+{% if benton_county %}
+<h3>Benton County</h3>
+	{% for contest in benton_county %}
+		{% if contest.print_only %}
+			{% if contest.contest_wrapper.name %}
+				{% ifchanged contest.contest_wrapper.name %}<p><strong>{{ contest.contest_wrapper.name|upper }}</strong></p>{% endifchanged %}
+				<p><strong>{{ contest.name }}</strong></p>
+			{% else %}
+				<p><strong>{{ contest.name|upper }}</strong></p>
+			{% endif %}
+			{% for candidate in contest.cand_yes_no_set.all %}
+				{% ifnotequal candidate.name "write-in" %}{% ifnotequal candidate.name "over votes" %}{% ifnotequal candidate.name "under votes" %}
+					<p>{{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}){% endif %}	{{ candidate.votes_local|intcomma }}</p>
+				{% endifnotequal %}{% endifnotequal %}{% endifnotequal %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+{% if coos_county %}
+<h3>Coos County</h3>
+	{% for contest in coos_county %}
+		{% if contest.print_only %}
+			{% if contest.contest_wrapper.name %}
+				{% ifchanged contest.contest_wrapper.name %}<p><strong>{{ contest.contest_wrapper.name|upper }}</strong></p>{% endifchanged %}
+				<p><strong>{{ contest.name }}</strong></p>
+			{% else %}
+				<p><strong>{{ contest.name|upper }}</strong></p>
+			{% endif %}
+			{% for candidate in contest.cand_yes_no_set.all %}
+				{% ifnotequal candidate.name "write-in" %}{% ifnotequal candidate.name "over votes" %}{% ifnotequal candidate.name "under votes" %}
+					<p>{{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}){% endif %}	{{ candidate.votes_local|intcomma }}</p>
+				{% endifnotequal %}{% endifnotequal %}{% endifnotequal %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+{% if douglas_county %}
+<h3>Douglas County</h3>
+	{% for contest in douglas_county %}
+		{% if contest.print_only %}
+			{% if contest.contest_wrapper.name %}
+				{% ifchanged contest.contest_wrapper.name %}<p><strong>{{ contest.contest_wrapper.name|upper }}</strong></p>{% endifchanged %}
+				<p><strong>{{ contest.name }}</strong></p>
+			{% else %}
+				<p><strong>{{ contest.name|upper }}</strong></p>
+			{% endif %}
+			{% for candidate in contest.cand_yes_no_set.all %}
+				{% ifnotequal candidate.name "write-in" %}{% ifnotequal candidate.name "over votes" %}{% ifnotequal candidate.name "under votes" %}
+					<p>{{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}){% endif %}	{{ candidate.votes_local|intcomma }}</p>
+				{% endifnotequal %}{% endifnotequal %}{% endifnotequal %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+{% if lincoln_county %}
+<h3>Lincoln County</h3>
+	{% for contest in lincoln_county %}
+		{% if contest.print_only %}
+			{% if contest.contest_wrapper.name %}
+				{% ifchanged contest.contest_wrapper.name %}<p><strong>{{ contest.contest_wrapper.name|upper }}</strong></p>{% endifchanged %}
+				<p><strong>{{ contest.name }}</strong></p>
+			{% else %}
+				<p><strong>{{ contest.name|upper }}</strong></p>
+			{% endif %}
+			{% for candidate in contest.cand_yes_no_set.all %}
+				{% ifnotequal candidate.name "write-in" %}{% ifnotequal candidate.name "over votes" %}{% ifnotequal candidate.name "under votes" %}
+					<p>{{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}){% endif %}	{{ candidate.votes_local|intcomma }}</p>
+				{% endifnotequal %}{% endifnotequal %}{% endifnotequal %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+{% if linn_county %}
+<h3>Linn County</h3>
+	{% for contest in linn_county %}
+		{% if contest.print_only %}
+			{% if contest.contest_wrapper.name %}
+				{% ifchanged contest.contest_wrapper.name %}<p><strong>{{ contest.contest_wrapper.name|upper }}</strong></p>{% endifchanged %}
+				<p><strong>{{ contest.name }}</strong></p>
+			{% else %}
+				<p><strong>{{ contest.name|upper }}</strong></p>
+			{% endif %}
+			{% for candidate in contest.cand_yes_no_set.all %}
+				{% ifnotequal candidate.name "write-in" %}{% ifnotequal candidate.name "over votes" %}{% ifnotequal candidate.name "under votes" %}
+					<p>{{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}){% endif %}	{{ candidate.votes_local|intcomma }}</p>
+				{% endifnotequal %}{% endifnotequal %}{% endifnotequal %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+</div>

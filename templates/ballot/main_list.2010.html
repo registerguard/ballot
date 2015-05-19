@@ -1,0 +1,18 @@
+{% load humanize %}{% autoescape off %}<UNICODE-MAC>
+<Version:5><FeatureSet:InDesign-Roman><ColorTable:=<Black:COLOR:CMYK:Process:0,0,0,1><Paper:COLOR:CMYK:Process:0,0,0,0>>
+<DefineParaStyle:NormalParagraphStyle=<Nextstyle:NormalParagraphStyle><cSize:9.500000><cLeading:10.000000><cFont:MillerDailyTwo><bnColor:None><numFont:\<TextFont\>>>
+<DefineParaStyle:QuickFacts\:News\_Elect\_blackCondheader=<Nextstyle:QuickFacts\:News\_Elect\_blackCondheader><cTypeface:Black><cSize:10.000000><pHyphenationLadderLimit:2><pAutoLeadPercent:1.000000><cLeading:10.000000><pHyphenation:0><pMinCharBeforeHyphen:3><pMinCharAfterHyphen:3><pShortestWordHyphenated:7><cFont:PoynterGothicTextCond><cFigureStyle:Tabular Lining><cHang:Baseline><cColorTint:100.000000><cSkew:-0.000000>>
+<DefineParaStyle:QuickFacts\:News\_Elect\_text=<Nextstyle:QuickFacts\:News\_Elect\_text><cSize:8.500000><cTracking:-3><pHyphenationLadderLimit:2><pAutoLeadPercent:1.000000><cLeading:8.600000><pHyphenation:0><pMinCharBeforeHyphen:3><pMinCharAfterHyphen:3><pHyphenateCapitals:0><pShortestWordHyphenated:7><pSpaceAfter:2.000000><pTabRuler:131\,Right\,.\,0\,. \;><cFont:PoynterGothicText><cFigureStyle:Tabular Lining><cHang:Baseline><cColorTint:100.000000><cSkew:-0.000000>>
+<DefineParaStyle:StandingHeads\:Style\_8\_ReverseBar\_Inline=<cColor:Paper><cTypeface:Black><cSize:10.000000><cLigatures:0><cCase:All Caps><pAutoLeadPercent:1.000000><pSpaceBefore:10.000000><pSpaceAfter:10.000000><cFont:PoynterGothicTextCond><pRuleAboveColor:Black><pRuleAboveStroke:0.500000><pRuleAboveOffset:11.000000><pRuleBelowColor:Black><pRuleBelowStroke:12.000000><pRuleBelowOffset:-9.500000><pRuleBelowOn:1><pTextAlignment:Center><bnColor:None><numFont:\<TextFont\>>>
+<DefineParaStyle:StandingHeads\:Style\_8\_ReverseBar=<cColor:Paper><cTypeface:Black><cSize:10.000000><cLigatures:0><cCase:All Caps><pAutoLeadPercent:1.000000><pSpaceAfter:10.000000><cFont:PoynterGothicTextCond><pRuleAboveColor:Black><pRuleAboveStroke:0.500000><pRuleAboveOffset:11.000000><pRuleBelowColor:Black><pRuleBelowStroke:12.000000><pRuleBelowOffset:-9.500000><pRuleBelowOn:1><pTextAlignment:Center><bnColor:None><numFont:\<TextFont\>>>
+<StrokeStyleTable:=<RG\_Oxford:STRIPE:0,0.45,0.46,0.08999999999999997>>
+<pTabRuler:><ParaStyle:StandingHeads\:Style\_8\_ReverseBar\_Inline>EUGENE/SPRINGFIELD
+{% if object_list %}{% for race in object_list %}{% if not race.no_one_filed %}{% ifchanged race.contest_wrapper.name %}<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_blackCondheader>{{ race.contest_wrapper.name|upper }}
+{% endifchanged %}{% if race.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader>{{ race.name }}
+{% endif %}{% endif %}{% for candidate in race.exclude_odd_bits %}<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_text><pTabRuler:111\,Right\,.\,0\,. \;>{{ candidate.name }}	{{ candidate.votes_local|intcomma }}
+{% endfor %}{% endfor %}{% endif %}<pTabRuler:><ParaStyle:StandingHeads\:Style\_8\_ReverseBar\_Inline>LANE COUNTY
+{% if lane_county %}{% for race in lane_county %}{% ifchanged race.contest_wrapper.name %}<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_blackCondheader>{{ race.contest_wrapper.name|upper }}
+{% endifchanged %}{% if race.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader>{{ race.name }}
+{% endif %}{% for candidate in race.exclude_odd_bits %}<pTabRuler:><ParaStyle:QuickFacts\:News\_Elect\_text><pTabRuler:111\,Right\,.\,0\,. \;>{{ candidate.name }}	{{ candidate.votes_local|intcomma }}
+{% endfor %}{% endfor %}{% endif %}
+{% endautoescape %}
