@@ -132,7 +132,7 @@ def print_file(request):
         mimetype = 'text/plain',
     )
 
-    resp = resp.encode('utf-16le')
+    resp = resp.content.encode('utf-16le')
     resp['Content-Disposition'] = 'attachment; filename=election-results.txt'
     return resp
 
