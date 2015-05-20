@@ -124,13 +124,6 @@ def main_print(request):
 #     )
 
 def print_file(request):
-    # resp = object_list(
-    #     request,
-    #     queryset = Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
-    #     template_name = 'ballot/20110517-print.html',
-    #     mimetype = 'text/plain',
-    # )
-
     # Hoops jumped through to encode response
     queryset = Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',)
     template_name = 'ballot/20150519-print.html'
