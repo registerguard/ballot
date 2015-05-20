@@ -132,9 +132,9 @@ def print_file(request):
     # )
 
     # Hoops jumped through to encode response
-    queryset = Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
+    queryset = Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',)
     template_name = 'ballot/20150519-print.html'
-    mimetype = 'text/plain',
+    mimetype = 'text/plain'
     t = loader.get_template(template_name)
     c = RequestContext(request, {'object_list': queryset })
     data = t.render(c)
