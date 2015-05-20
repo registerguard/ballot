@@ -11,7 +11,7 @@
 {% endif %}{% endifchanged %}{% if contest.explainer_text %}<ParaStyle:QuickFacts\:News\_Elect\_text>({{ contest.explainer_text }})
 {% endif %}{% for race in contest.cand_yes_no_set.all %}{% if race.candidate_or_decision %}<ParaStyle:QuickFacts\:News\_Elect\_text>{{ race.name }}{% if race.incumbent %}*{% endif %}	{{ race.votes_local|intcomma }}
 {% if contest.statewide %}<ParaStyle:QuickFacts\:News\_Elect\_text>	({{ race.votes_other|intcomma }})
-{% endif %}{% endif %}{% endfor %}{% endfor %}{% endautoescape %}<ParaStyle:QuickFacts\:News\_Elect\_text><cTypeface:Bold>Key
-{% comment %}<cTypeface:><ParaStyle:QuickFacts\:News\_Elect\_text>* Incumbent
+{% endif %}{% endif %}{% endfor %}{% endfor %}{% endautoescape %}{% comment %}<ParaStyle:QuickFacts\:News\_Elect\_text><cTypeface:Bold>Key
+<cTypeface:><ParaStyle:QuickFacts\:News\_Elect\_text>* Incumbent
 <ParaStyle:QuickFacts\:News\_Elect\_text>Totals in parentheses are Linn County votes.
-{% endcomment %}<ParaStyle:QuickFacts\:News\_Elect\_text>For updated results, visit www.registerguard.com.
+{% endcomment %}<ParaStyle:QuickFacts\:News\_Elect\_text>For updated results, visit registerguard.com.
