@@ -82,7 +82,7 @@
 											{# {% if contest.print_only %} #}
 
 											<tr>
-												<td colspan="5" class="contest_name" style="text-align: center;" id="{{ contest.name|slugify }}">{% if contest.name %}<strong>{{ contest.name }}</strong> &mdash; {% endif %}{% if contest.explainer_text %}{{ contest.explainer_text }}{% endif %}{% if contest.precincts_counted %}<br>
+												<td colspan="5" class="contest_name" style="text-align: center;" id="{{ contest.name|slugify }}">{% if contest.name %}<strong>{{ contest.name }}</strong> {% endif %}{% if contest.explainer_text %}{{ contest.explainer_text }}{% endif %}{% if contest.precincts_counted %}<br>
 												({{ contest.precincts_counted }} of {{ contest.precincts }} Lane County precincts counted){% endif %}</td>
 											</tr>
 
