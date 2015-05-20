@@ -11,7 +11,7 @@ Better for primaries:
 Better for general election:
 'queryset': Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
 
-REMEMBER:  You can set the order of the races via the Hard-coded Order 
+REMEMBER:  You can set the order of the races via the Hard-coded Order
 part of the Contest Wrapper item.
 '''
 info_dict = {
@@ -21,8 +21,8 @@ info_dict = {
 }
 
 urlpatterns = patterns('',
-    # May 17, 2011 special election
-    (r'^20110517/print/$', 'ballot.views.print_file'),
+    # May 19, 2015 special election
+    (r'^20150519/print/$', 'ballot.views.print_file'),
 
     # May 18, 2010 primary
     (r'^20100518/print/$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='ballot/20100518-print.html', mimetype='text/plain; charset=UTF-8')),
@@ -30,7 +30,7 @@ urlpatterns = patterns('',
     # May 15, 2012 primary
    (r'^20120515/print/$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='ballot/20110517-print.html', mimetype='text/plain; charset=UTF-8')),
 #    (r'^20120515/print/$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='ballot/20100518-print.html', mimetype='text/plain; charset=UTF-8')),
-    
+
     (r'^results/print/$', 'django.views.generic.list_detail.object_list', info_dict),
     (r'^results/check/$', 'django.views.generic.list_detail.object_list', dict({'queryset': Contest.objects.order_by('region', 'contest_wrapper', 'contest_number',)}, template_name='ballot/check_list.html')),
 
@@ -50,4 +50,3 @@ urlpatterns = patterns('',
     (r'^json/(?P<geo>[a-z]{6})?/?$', json_results),
     (r'^json/ap_elex_stories/(?P<story_count>\d\d?)/$', json_wire_stories),
 )
-    

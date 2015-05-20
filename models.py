@@ -3,7 +3,7 @@ from django.core.cache import cache
 from django.db import models
 from django.http import HttpRequest
 from django.utils.cache import _generate_cache_header_key
-from projects_root.ballot.templatetags.humanize_list import humanize_list
+from ballot.templatetags.humanize_list import humanize_list
 
 # Create your models here.
 
