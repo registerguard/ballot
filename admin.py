@@ -12,7 +12,7 @@ admin.site.register(Region, RegionAdmin)
 
 class Contest_wrapperAdmin(admin.ModelAdmin):
     list_display = ('name', 'hard_coded_order',)
-    list_editable = ('name', 'hard_coded_order',)
+    list_editable = ('hard_coded_order',)
 
 admin.site.register(Contest_wrapper, Contest_wrapperAdmin)
 
