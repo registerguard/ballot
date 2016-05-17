@@ -7,8 +7,8 @@
 <StrokeStyleTable:=<RG\_Oxford:STRIPE:0,0.45,0.46,0.08999999999999997>>
 {% autoescape off %}{% for contest in object_list %}{% ifchanged %}<ParaStyle:StandingHeads\:Style\_8\_ReverseBar\_Inline>{{ contest.region }}
 {% endifchanged %}{% ifchanged %}{% if contest.contest_wrapper %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheaderCAP>{{ contest.contest_wrapper }}
-{% endif %}{% endifchanged %}{% ifchanged %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader>{{ contest.name }}
-{% endifchanged %}{% for race in contest.cand_yes_no_set.all %}{% if race.candidate_or_decision %}<ParaStyle:QuickFacts\:News\_Elect\_text>{{ race.name }}{% if race.incumbent %}*{% endif %}	{{ race.local_percent }}%
+{% endif %}{% endifchanged %}{% if contest.name %}{% ifchanged %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader>{{ contest.name }}
+{% endifchanged %}{% endif %}{% for race in contest.cand_yes_no_set.all %}{% if race.candidate_or_decision %}<ParaStyle:QuickFacts\:News\_Elect\_text>{{ race.name }}{% if race.incumbent %}*{% endif %}	{{ race.local_percent }}%
 {% if contest.statewide %}<ParaStyle:QuickFacts\:News\_Elect\_text>	({{ race.other_percent }}%)
 {% endif %}{% endif %}{% endfor %}{% endfor %}{% endautoescape %}<ParaStyle:QuickFacts\:News\_Elect\_text><cTypeface:Bold>Key
 <cTypeface:><ParaStyle:QuickFacts\:News\_Elect\_text>*Incumbent

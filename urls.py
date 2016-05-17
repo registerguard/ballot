@@ -12,11 +12,13 @@ Better for general election:
 'queryset': Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
 
 REMEMBER:  You can set the order of the races via the Hard-coded Order
-part of the Contest Wrapper item.
+part of the Contest Wrapper item, which you're probably going to need in the
+case of a primary as the County groups results by party and not race, as we do.
 '''
 info_dict = {
-    'queryset': Contest.objects.order_by('region', 'contest_wrapper__hard_coded_order', 'contest_wrapper', 'name',),
+    'queryset': Contest.objects.filter(print_only=True).order_by('region', 'contest_wrapper__hard_coded_order', 'contest_wrapper', 'name',),
 #     'queryset': Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
+#     'queryset': Contest.objects.order_by('region', 'contest_number', 'contest_wrapper',),
     'template_name': 'ballot/web_full_list.html',
 }
 
@@ -28,7 +30,7 @@ urlpatterns = patterns('',
     (r'^20100518/print/$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='ballot/20100518-print.html', mimetype='text/plain; charset=UTF-8')),
 
     # May 15, 2012 primary
-   (r'^20120515/print/$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='ballot/20110517-print.html', mimetype='text/plain; charset=UTF-8')),
+   (r'^20120515/print/$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='ballot/20120515-print.html', mimetype='text/plain; charset=UTF-8')),
 #    (r'^20120515/print/$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='ballot/20100518-print.html', mimetype='text/plain; charset=UTF-8')),
 
     (r'^results/print/$', 'django.views.generic.list_detail.object_list', info_dict),
