@@ -20,6 +20,9 @@ info_dict = {
 #     'queryset': Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
 #     'queryset': Contest.objects.order_by('region', 'contest_number', 'contest_wrapper',),
     'template_name': 'ballot/web_full_list.html',
+    'extra_context': {
+        'object.author': 'John Heasly',
+        },
 }
 
 urlpatterns = patterns('',
