@@ -30,13 +30,15 @@ urlpatterns = patterns('',
     (r'^20100518/print/$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='ballot/20100518-print.html', mimetype='text/plain; charset=UTF-8')),
 
     # May 15, 2012 primary
-   (r'^20120515/print/$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='ballot/20120515-print.html', mimetype='text/plain; charset=UTF-8')),
+    # May 17, 2016 primary
+   (r'^20160517/print/$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='ballot/20160517-print.html', mimetype='text/plain; charset=UTF-8')),
 #    (r'^20120515/print/$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='ballot/20100518-print.html', mimetype='text/plain; charset=UTF-8')),
 
     (r'^results/print/$', 'django.views.generic.list_detail.object_list', info_dict),
     (r'^results/check/$', 'django.views.generic.list_detail.object_list', dict({'queryset': Contest.objects.order_by('region', 'contest_wrapper', 'contest_number',)}, template_name='ballot/check_list.html')),
 
-    (r'^results/web/$', object_list, dict({'queryset': Contest.objects.filter(web_front=True).order_by('contest_wrapper__hard_coded_order', 'contest_number',)}, template_name='ballot/web_list.html')),
+    (r'^results/web/$', object_list, dict({'queryset': Contest.objects.filter(web_front=True).order_by('region', 'contest_wrapper',)}, template_name='ballot/web_list.html')),
+#     (r'^results/web/$', object_list, dict({'queryset': Contest.objects.filter(web_front=True).order_by('contest_wrapper__hard_coded_order', 'contest_number',)}, template_name='ballot/web_list.html')),
 #     (r'^results/web/$', cache_page(object_list, 60 * 30), dict({'queryset': Contest.objects.order_by('-contest_number',)}, template_name='ballot/web_list.html')),
 
     (r'^results/web/test/$', 'django.views.generic.list_detail.object_list', dict({'queryset': Contest.objects.order_by('contest_number',)}, template_name='ballot/web_list_test.html')),

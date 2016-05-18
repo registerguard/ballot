@@ -1,0 +1,14 @@
+﻿<UNICODE-MAC>
+<Version:5><FeatureSet:InDesign-Roman><ColorTable:=<Paper:COLOR:CMYK:Process:0,0,0,0><Black:COLOR:CMYK:Process:0,0,0,1>>
+<DefineParaStyle:StandingHeads\:Style\_8\_ReverseBar\_Inline=<cColor:Paper><cTypeface:Black><cSize:10.000000><cLigatures:0><cCase:All Caps><pAutoLeadPercent:1.000000><pSpaceBefore:10.000000><pSpaceAfter:10.000000><cFont:PoynterGothicTextCond><pRuleAboveColor:Black><pRuleAboveStroke:0.500000><pRuleAboveOffset:11.000000><pRuleBelowColor:Black><pRuleBelowStroke:12.000000><pRuleBelowOffset:-9.500000><pRuleBelowOn:1><pTextAlignment:Center>>
+<DefineParaStyle:QuickFacts\:News\_Elect\_blackCondheaderCAP=<Nextstyle:QuickFacts\:News\_Elect\_blackCondheaderCAP><cTypeface:Black><cSize:10.000000><cCase:All Caps><pHyphenationLadderLimit:2><pAutoLeadPercent:1.000000><cLeading:10.000000><pHyphenation:0><pMinCharBeforeHyphen:3><pMinCharAfterHyphen:3><pShortestWordHyphenated:7><cFont:PoynterGothicTextCond><cFigureStyle:Tabular Lining><cHang:Baseline><cColorTint:100.000000><cSkew:-0.000000>>
+<DefineParaStyle:QuickFacts\:News\_Elect\_blackCondheader=<Nextstyle:QuickFacts\:News\_Elect\_blackCondheader><cTypeface:Black><cSize:10.000000><pHyphenationLadderLimit:2><pAutoLeadPercent:1.000000><cLeading:10.000000><pHyphenation:0><pMinCharBeforeHyphen:3><pMinCharAfterHyphen:3><pShortestWordHyphenated:7><cFont:PoynterGothicTextCond><cFigureStyle:Tabular Lining><cHang:Baseline><cColorTint:100.000000><cSkew:-0.000000>>
+<DefineParaStyle:QuickFacts\:News\_Elect\_text=<Nextstyle:QuickFacts\:News\_Elect\_text><cSize:9.000000><cTracking:-3><pHyphenationLadderLimit:2><pAutoLeadPercent:1.000000><cLeading:9.100000><pHyphenation:0><pMinCharBeforeHyphen:3><pMinCharAfterHyphen:3><pHyphenateCapitals:0><pShortestWordHyphenated:7><pSpaceAfter:2.000000><pTabRuler:111\,Right\,.\,0\,.\;><cFont:PoynterGothicText><cFigureStyle:Tabular Lining><cHang:Baseline><cColorTint:100.000000><cSkew:-0.000000>>
+<StrokeStyleTable:=<RG\_Oxford:STRIPE:0,0.45,0.46,0.08999999999999997>>
+{% autoescape off %}{% for contest in object_list %}{% ifchanged %}<ParaStyle:StandingHeads\:Style\_8\_ReverseBar\_Inline>{{ contest.region }}
+{% endifchanged %}{% ifchanged %}{% if contest.contest_wrapper %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheaderCAP>{{ contest.contest_wrapper }}
+{% endif %}{% endifchanged %}{% if contest.name %}{% ifchanged %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader>{{ contest.name }}
+{% endifchanged %}{% endif %}{% for race in contest.cand_yes_no_set.all %}{% if race.candidate_or_decision %}<ParaStyle:QuickFacts\:News\_Elect\_text>{{ race.name }}{% if race.incumbent %}*{% endif %}	{{ race.local_percent }}%
+{% if contest.statewide %}<ParaStyle:QuickFacts\:News\_Elect\_text>	({{ race.other_percent }}%)
+{% endif %}{% endif %}{% endfor %}{% endfor %}{% endautoescape %}<ParaStyle:QuickFacts\:News\_Elect\_text><cTypeface:Bold>Key
+<cTypeface:><ParaStyle:QuickFacts\:News\_Elect\_text>*Incumbent

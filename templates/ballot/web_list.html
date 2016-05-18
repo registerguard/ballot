@@ -48,7 +48,9 @@
 				<tr class="{% cycle 'odd' 'even' %}">
 					{% if contest.statewide %}
 					<td>
-						{{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}) {% endif %}{% if candidate.incumbent %}*{% endif %}
+						{# {{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}) {% endif %}{% if candidate.incumbent %}*{% endif %} #}
+						{# 20160517 Primary, don't need affiliation. #}
+						{{ candidate.name }}{% if candidate.incumbent %}*{% endif %}
 					</td>
 					<td>
 						{{ candidate.votes_local|intcomma }}
