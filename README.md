@@ -4,7 +4,7 @@
 
 ![screenshot 2016-05-18 14 50 01](https://cloud.githubusercontent.com/assets/96007/15378391/e74786ba-1d17-11e6-8828-80c8a730f442.png)
 
-## Online and print election results from Lane County
+### Online and print election results from Lane County
 
 1. Make copies of previous year's Lane County set-up & update scripts and Oregon SOS update script. (There is no Oregon SOS set-up script as all the relevant races are in the Lane County races list.)
 1. Check around Lane County Elections web site for location of current Lane County ASCII Layout page, using last election's URL in set-up/update scripts as a starting place.
