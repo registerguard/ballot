@@ -109,7 +109,8 @@ class Contest(models.Model):
     def local_vote_total(self):
         vote_total = 0
         for each_cand in self.cand_yes_no_set.all():
-            if each_cand.votes_local:
+            # Filter out 'over votes' and 'under votes'!
+            if each_cand.votes_local and not 'votes' in each_cand.name:
                 vote_total = vote_total + each_cand.votes_local
             else:
                 vote_total = vote_total + 0
@@ -175,9 +176,9 @@ class Cand_yes_no(CCOnSaveBase):
     
     def candidate_or_decision(self):
         '''
-        To filter out vote totals of 
+        To filter out vote totals of
             "over vote"
-            "under vote" and 
+            "under vote" and
             "write-in"
         from Lane County election results
         '''
