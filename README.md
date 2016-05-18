@@ -12,7 +12,7 @@
 1. Edit `contest_wrapper`s, `is_race`, `web_front`, `use_in_paper`, candidate names, race names.
 1. Add out-of-county races.
 
-On Election Night:  
+On Election Night repeat this cycle:  
 
 1. Run Lane County update script.
 1. Run Oregon Secretary of State update script.
