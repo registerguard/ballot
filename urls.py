@@ -16,7 +16,7 @@ part of the Contest Wrapper item, which you're probably going to need in the
 case of a primary as the County groups results by party and not race, as we do.
 '''
 info_dict = {
-    'queryset': Contest.objects.filter(print_only=True).order_by('region', 'contest_wrapper__hard_coded_order', 'contest_wrapper', 'name',),
+    'queryset': Contest.objects.select_related().filter(print_only=True).order_by('region', 'contest_wrapper__hard_coded_order', 'contest_wrapper', 'name',),
 #     'queryset': Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
 #     'queryset': Contest.objects.order_by('region', 'contest_number', 'contest_wrapper',),
     'template_name': 'ballot/web_full_list.html',
@@ -46,7 +46,8 @@ urlpatterns = patterns('',
 
     (r'^results/web/test/$', 'django.views.generic.list_detail.object_list', dict({'queryset': Contest.objects.order_by('contest_number',)}, template_name='ballot/web_list_test.html')),
 
-    (r'^results/full/$', cache_page(object_list, 60 * 15), info_dict),
+#     (r'^results/full/$', cache_page(object_list, 60 * 15), info_dict),
+    (r'^results/full/$', object_list, info_dict),
 
     (r'^results/box/$', 'ballot.views.box_print'),
     (r'^results/box/check/$', 'ballot.views.box_web'),
