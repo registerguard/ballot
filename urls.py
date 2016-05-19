@@ -46,8 +46,7 @@ urlpatterns = patterns('',
 
     (r'^results/web/test/$', 'django.views.generic.list_detail.object_list', dict({'queryset': Contest.objects.order_by('contest_number',)}, template_name='ballot/web_list_test.html')),
 
-#     (r'^results/full/$', cache_page(object_list, 60 * 15), info_dict),
-    (r'^results/full/$', object_list, info_dict),
+    (r'^results/full/$', cache_page(object_list, 60 * 15), info_dict),
 
     (r'^results/box/$', 'ballot.views.box_print'),
     (r'^results/box/check/$', 'ballot.views.box_web'),
