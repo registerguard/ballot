@@ -8,6 +8,10 @@ from ballot.templatetags.humanize_list import humanize_list
 # Create your models here.
 
 class CCOnSaveBase(models.Model):
+    '''
+    Apparently stands for Cache Clear On Save. I wonder where I got this?
+    In any event, I've backed it out.
+    '''
     
     class Meta:
         abstract = True
@@ -125,8 +129,8 @@ class Contest(models.Model):
                 vote_total = vote_total + 0
         return vote_total
 
-# class Cand_yes_no(models.Model):
-class Cand_yes_no(CCOnSaveBase):
+# class Cand_yes_no(CCOnSaveBase):
+class Cand_yes_no(models.Model):
     POLITICAL_PARTY = (
     ('C',  'Constitution'),
     ('D',  'Democrat'),
