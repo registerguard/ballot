@@ -3,9 +3,10 @@
 {# http://leafletjs.com/examples/choropleth.html #}
 
 {% block head_extra %}
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 <style>
 		#map {
-			width: 800px;
+			width: 640px;
 			height: 500px;
 		}
 
@@ -42,13 +43,30 @@
 <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 <script src="http://static.registerguard.com/ballot/js/oregon_counties.json"></script>
 <script>
+	var map = L.map('map').setView([44.455271, -120.674006], 6);
 	var mapboxAccessToken = 'pk.eyJ1IjoiamhlYXNseSIsImEiOiJxQ1hKZmlBIn0.FogeUXv7HHl_CjgfL0aP2A';
-	var map = L.map('map').setView([44.455271, -120.674006], 7);
 
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
 		id: 'mapbox.light',
 		attribution: 'John Heasly!'
 	}).addTo(map);
+
+	// control that shows state info on hover
+	var info = L.control();
+
+	info.onAdd = function (map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	info.update = function (props) {
+		this._div.innerHTML = '<h4>Voter turnout</h4>' + ( props ?
+			'<b>' + props.name + '</b><br />' + props.turnout + ' %'
+			: 'Hover over a county');
+	};
+
+	info.addTo(map);
 
 	// get color depending on population density value
 	function getColor(d) {
@@ -60,7 +78,7 @@
 		       d > 20   ? '#FEB24C' :
 		       d > 10   ? '#FED976' :
 		                  '#FFEDA0';
-	}
+	};
 
 	function style(feature) {
 		return {
@@ -71,9 +89,7 @@
 			fillOpacity: 0.7,
 			fillColor: getColor(feature.properties.turnout)
 		};
-	}
-
-	var geojson;
+	};
 
 	function highlightFeature(e) {
 		var layer = e.target;
@@ -82,7 +98,7 @@
 			weight: 5,
 			color: '#666',
 			dashArray: '',
-			fillOpacity: 0.7
+			fillOpacity: 0.6
 		});
 
 		if (!L.Browser.ie && !L.Browser.opera) {
@@ -90,7 +106,7 @@
 		}
 
 		info.update(layer.feature.properties);
-	}
+	};
 
 	var geojson;
 
