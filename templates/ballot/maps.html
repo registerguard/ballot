@@ -1,12 +1,10 @@
 {% extends "dox/bulldog_story.html" %}
 
-{# http://leafletjs.com/examples/choropleth.html #}
-
 {% block head_extra %}
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 <style>
 		#map {
-			width: 640px;
+			width: 980px;
 			height: 500px;
 		}
 
@@ -40,34 +38,38 @@
 
 {% block content %}
 <div id="map"></div>
-<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+{% endblock content %}
+
+{% block footer_extra %}
 <script src="http://static.registerguard.com/ballot/js/oregon_counties.json"></script>
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 <script>
 	var map = L.map('map').setView([44.455271, -120.674006], 6);
 	var mapboxAccessToken = 'pk.eyJ1IjoiamhlYXNseSIsImEiOiJxQ1hKZmlBIn0.FogeUXv7HHl_CjgfL0aP2A';
 
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
+		maxZoom: 18,
 		id: 'mapbox.light',
 		attribution: 'John Heasly!'
 	}).addTo(map);
 
 	// control that shows state info on hover
 	var info = L.control();
-
+	
 	info.onAdd = function (map) {
 		this._div = L.DomUtil.create('div', 'info');
 		this.update();
 		return this._div;
 	};
-
+	
 	info.update = function (props) {
 		this._div.innerHTML = '<h4>Voter turnout</h4>' + ( props ?
 			'<b>' + props.name + '</b><br />' + props.turnout + ' %'
 			: 'Hover over a county');
 	};
-
+	
 	info.addTo(map);
-
+	
 	// get color depending on population density value
 	function getColor(d) {
 		return d > 90 ? '#800026' :
@@ -79,7 +81,7 @@
 		       d > 10   ? '#FED976' :
 		                  '#FFEDA0';
 	};
-
+	
 	function style(feature) {
 		return {
 			weight: 2,
@@ -90,35 +92,35 @@
 			fillColor: getColor(feature.properties.turnout)
 		};
 	};
-
+	
 	function highlightFeature(e) {
 		var layer = e.target;
-
+	
 		layer.setStyle({
 			weight: 5,
 			color: '#666',
 			dashArray: '',
 			fillOpacity: 0.6
 		});
-
+	
 		if (!L.Browser.ie && !L.Browser.opera) {
 			layer.bringToFront();
 		}
-
+	
 		info.update(layer.feature.properties);
 	};
-
+	
 	var geojson;
-
+	
 	function resetHighlight(e) {
 		geojson.resetStyle(e.target);
 		info.update();
 	}
-
+	
 	function zoomToFeature(e) {
 		map.fitBounds(e.target.getBounds());
 	}
-
+	
 	function onEachFeature(feature, layer) {
 		layer.on({
 			mouseover: highlightFeature,
@@ -126,12 +128,12 @@
 			click: zoomToFeature
 		});
 	}
-
+	
 	geojson = L.geoJson(oregonCounties, {
 		style: style,
 		onEachFeature: onEachFeature
 	}).addTo(map);
-
+	
 	map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
 </script>
-{% endblock content %}
+{% endblock footer_extra %}
