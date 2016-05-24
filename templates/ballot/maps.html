@@ -1,11 +1,13 @@
 {% extends "dox/bulldog_story.html" %}
 
+{# Some turnout numbers here: http://oregonvotes.org/results/2016P/1577763306.html #}
+
 {% block head_extra %}
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 <style>
 		#map {
 			width: 980px;
-			height: 500px;
+			height: 670px;
 		}
 
 		.info {
@@ -44,14 +46,20 @@
 <script src="http://static.registerguard.com/ballot/js/oregon_counties.json"></script>
 <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 <script>
-	var map = L.map('map').setView([44.455271, -120.674006], 6);
+	var map = L.map('map').setView([44.455271, -120.674006], 7);
 	var mapboxAccessToken = 'pk.eyJ1IjoiamhlYXNseSIsImEiOiJxQ1hKZmlBIn0.FogeUXv7HHl_CjgfL0aP2A';
 
-	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
+	// L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
+	// 	maxZoom: 18,
+	// 	id: 'mapbox.light',
+	// 	attribution: 'John Heasly!'
+	// }).addTo(map);
+
+	var mapquestLayer = new L.TileLayer('http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
 		maxZoom: 18,
-		id: 'mapbox.light',
-		attribution: 'John Heasly!'
-	}).addTo(map);
+		subdomains: ['otile1','otile2','otile3','otile4']
+	});
+	map.addLayer(mapquestLayer);
 
 	// control that shows state info on hover
 	var info = L.control();
@@ -72,13 +80,13 @@
 	
 	// get color depending on population density value
 	function getColor(d) {
-		return d > 90 ? '#800026' :
-		       d > 80  ? '#BD0026' :
+		return d > 70 ? '#800026' :
+		       d > 65  ? '#BD0026' :
 		       d > 60  ? '#E31A1C' :
-		       d > 40  ? '#FC4E2A' :
-		       d > 30   ? '#FD8D3C' :
-		       d > 20   ? '#FEB24C' :
-		       d > 10   ? '#FED976' :
+		       d > 55  ? '#FC4E2A' :
+		       d > 50   ? '#FD8D3C' :
+		       d > 45   ? '#FEB24C' :
+		       d > 40   ? '#FED976' :
 		                  '#FFEDA0';
 	};
 	
