@@ -49,17 +49,17 @@
 	var map = L.map('map').setView([44.455271, -120.674006], 7);
 	var mapboxAccessToken = 'pk.eyJ1IjoiamhlYXNseSIsImEiOiJxQ1hKZmlBIn0.FogeUXv7HHl_CjgfL0aP2A';
 
-	// L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
-	// 	maxZoom: 18,
-	// 	id: 'mapbox.light',
-	// 	attribution: 'John Heasly!'
-	// }).addTo(map);
-
-	var mapquestLayer = new L.TileLayer('http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
 		maxZoom: 18,
-		subdomains: ['otile1','otile2','otile3','otile4']
-	});
-	map.addLayer(mapquestLayer);
+		id: 'mapbox.light',
+		attribution: 'John Heasly!'
+	}).addTo(map);
+
+	// var mapquestLayer = new L.TileLayer('http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+	// 	maxZoom: 18,
+	// 	subdomains: ['otile1','otile2','otile3','otile4']
+	// });
+	// map.addLayer(mapquestLayer);
 
 	// control that shows state info on hover
 	var info = L.control();
