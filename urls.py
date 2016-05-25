@@ -58,5 +58,5 @@ urlpatterns = patterns('',
     (r'^json/(?P<geo>[a-z]{6})?/?$', json_results),
     (r'^json/ap_elex_stories/(?P<story_count>\d\d?)/$', json_wire_stories),
 
-    (r'^maps/', direct_to_template, {'template': 'ballot/maps.html'}),
+    (r'^maps/', direct_to_template, {'template': 'ballot/maps.html', 'extra_context': {'object': {'author': 'John Heasly'}}}),
 )

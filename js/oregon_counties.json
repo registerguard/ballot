@@ -290,8 +290,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41071",
-        "name": "Yamhill County, OR",
-        "turnout": "53.5"
+        "name": "Yamhill County",
+        "turnout": 53.5,
+        "eligible_voters": 55192
       }
     },
     {
@@ -687,8 +688,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41031",
-        "name": "Jefferson County, OR",
-        "turnout": "47.1"
+        "name": "Jefferson County",
+        "turnout": 47.1,
+        "eligible_voters": 10864
       }
     },
     {
@@ -1700,8 +1702,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41015",
-        "name": "Curry County, OR",
-        "turnout": "63"
+        "name": "Curry County",
+        "turnout": 63,
+        "eligible_voters": 13865
       }
     },
     {
@@ -2221,8 +2224,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41023",
-        "name": "Grant County, OR",
-        "turnout": "72"
+        "name": "Grant County",
+        "turnout": 72,
+        "eligible_voters": 4640
       }
     },
     {
@@ -3318,8 +3322,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41043",
-        "name": "Linn County, OR",
-        "turnout": "45.4"
+        "name": "Linn County",
+        "turnout": 45.4,
+        "eligible_voters": 68241
       }
     },
     {
@@ -3547,8 +3552,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41059",
-        "name": "Umatilla County, OR",
-        "turnout": "46.5"
+        "name": "Umatilla County",
+        "turnout": 46.5,
+        "eligible_voters": 33543
       }
     },
     {
@@ -3924,8 +3930,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41069",
-        "name": "Wheeler County, OR",
-        "turnout": "61.8"
+        "name": "Wheeler County",
+        "turnout": 61.8,
+        "eligible_voters": 916
       }
     },
     {
@@ -4813,8 +4820,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41065",
-        "name": "Wasco County, OR",
-        "turnout": "51.2"
+        "name": "Wasco County",
+        "turnout": 51.2,
+        "eligible_voters": 13578
       }
     },
     {
@@ -5202,8 +5210,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41045",
-        "name": "Malheur County, OR",
-        "turnout": "45.7"
+        "name": "Malheur County",
+        "turnout": 45.7,
+        "eligible_voters": 12162
       }
     },
     {
@@ -5619,8 +5628,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41051",
-        "name": "Multnomah County, OR",
-        "turnout": "56.2"
+        "name": "Multnomah County",
+        "turnout": 56.2,
+        "eligible_voters": 462824
       }
     },
     {
@@ -5944,8 +5954,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41053",
-        "name": "Polk County, OR",
-        "turnout": "50.8"
+        "name": "Polk County",
+        "turnout": 50.8,
+        "eligible_voters": 46142
       }
     },
     {
@@ -6265,8 +6276,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41007",
-        "name": "Clatsop County, OR",
-        "turnout": "55.3"
+        "name": "Clatsop County",
+        "turnout": 55.3,
+        "eligible_voters": 22140
       }
     },
     {
@@ -6362,8 +6374,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41037",
-        "name": "Lake County, OR",
-        "turnout": "68.7"
+        "name": "Lake County",
+        "turnout": 68.7,
+        "eligible_voters": 4241
       }
     },
     {
@@ -7107,8 +7120,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41019",
-        "name": "Douglas County, OR",
-        "turnout": "52.3"
+        "name": "Douglas County",
+        "turnout": 52.3,
+        "eligible_voters": 63081
       }
     },
     {
@@ -7684,8 +7698,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41061",
-        "name": "Union County, OR",
-        "turnout": "57.4"
+        "name": "Union County",
+        "turnout": 57.4,
+        "eligible_voters": 15042
       }
     },
     {
@@ -8177,8 +8192,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41003",
-        "name": "Benton County, OR",
-        "turnout": "57.4"
+        "name": "Benton County",
+        "turnout": 57.4,
+        "eligible_voters": 52526
       }
     },
     {
@@ -8982,8 +8998,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41005",
-        "name": "Clackamas County, OR",
-        "turnout": "50.7"
+        "name": "Clackamas County",
+        "turnout": 50.7,
+        "eligible_voters": 242295
       }
     },
     {
@@ -9103,8 +9120,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41025",
-        "name": "Harney County, OR",
-        "turnout": "72.2"
+        "name": "Harney County",
+        "turnout": 72.2,
+        "eligible_voters": 4371
       }
     },
     {
@@ -9428,8 +9446,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41067",
-        "name": "Washington County, OR",
-        "turnout": "49.2"
+        "name": "Washington County",
+        "turnout": 49.2,
+        "eligible_voters": 305311
       }
     },
     {
@@ -9729,8 +9748,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41041",
-        "name": "Lincoln County, OR",
-        "turnout": "59.3"
+        "name": "Lincoln County",
+        "turnout": 59.3,
+        "eligible_voters": 28559
       }
     },
     {
@@ -10034,8 +10054,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41035",
-        "name": "Klamath County, OR",
-        "turnout": "62.8"
+        "name": "Klamath County",
+        "turnout": 62.8,
+        "eligible_voters": 34609
       }
     },
     {
@@ -10491,8 +10512,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41063",
-        "name": "Wallowa County, OR",
-        "turnout": "64"
+        "name": "Wallowa County",
+        "turnout": 64,
+        "eligible_voters": 4803
       }
     },
     {
@@ -10620,8 +10642,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41013",
-        "name": "Crook County, OR",
-        "turnout": "58.8"
+        "name": "Crook County",
+        "turnout": 58.8,
+        "eligible_voters": 13437
       }
     },
     {
@@ -10921,8 +10944,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41029",
-        "name": "Jackson County, OR",
-        "turnout": "54.5"
+        "name": "Jackson County",
+        "turnout": 54.5,
+        "eligible_voters": 126892
       }
     },
     {
@@ -11850,8 +11874,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41001",
-        "name": "Baker County, OR",
-        "turnout": "58"
+        "name": "Baker County",
+        "turnout": 58,
+        "eligible_voters": 10153
       }
     },
     {
@@ -12323,8 +12348,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41011",
-        "name": "Coos County, OR",
-        "turnout": "55.8"
+        "name": "Coos County",
+        "turnout": 55.8,
+        "eligible_voters": 34961
       }
     },
     {
@@ -13072,8 +13098,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41021",
-        "name": "Gilliam County, OR",
-        "turnout": "53.4"
+        "name": "Gilliam County",
+        "turnout": 53.4,
+        "eligible_voters": 1183
       }
     },
     {
@@ -13537,8 +13564,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41027",
-        "name": "Hood River County, OR",
-        "turnout": "67.7"
+        "name": "Hood River County",
+        "turnout": 67.7,
+        "eligible_voters": 12337
       }
     },
     {
@@ -13962,8 +13990,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41017",
-        "name": "Deschutes County, OR",
-        "turnout": "52"
+        "name": "Deschutes County",
+        "turnout": 52,
+        "eligible_voters": 107966
       }
     },
     {
@@ -14771,8 +14800,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41033",
-        "name": "Josephine County, OR",
-        "turnout": "55.2"
+        "name": "Josephine County",
+        "turnout": 55.2,
+        "eligible_voters": 54236
       }
     },
     {
@@ -15944,8 +15974,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41047",
-        "name": "Marion County, OR",
-        "turnout": "48.9"
+        "name": "Marion County",
+        "turnout": 48.9,
+        "eligible_voters": 159176
       }
     },
     {
@@ -17249,8 +17280,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41055",
-        "name": "Sherman County, OR",
-        "turnout": "56.9"
+        "name": "Sherman County",
+        "turnout": 56.9,
+        "eligible_voters": 1142
       }
     },
     {
@@ -17418,8 +17450,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41049",
-        "name": "Morrow County, OR",
-        "turnout": "51.4"
+        "name": "Morrow County",
+        "turnout": 51.4,
+        "eligible_voters": 4899
       }
     },
     {
@@ -17807,8 +17840,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41057",
-        "name": "Tillamook County, OR",
-        "turnout": "55.4"
+        "name": "Tillamook County",
+        "turnout": 55.4,
+        "eligible_voters": 15531
       }
     },
     {
@@ -18016,8 +18050,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41009",
-        "name": "Columbia County, OR",
-        "turnout": "52.5"
+        "name": "Columbia County",
+        "turnout": 52.5,
+        "eligible_voters": 30189
       }
     },
     {
@@ -18717,8 +18752,9 @@ var oregonCounties = {
       "type": "Feature",
       "properties": {
         "geoid": "05000US41039",
-        "name": "Lane County, OR",
-        "turnout": "57.6"
+        "name": "Lane County",
+        "turnout": 57.6,
+        "eligible_voters": 221023
       }
     }
   ]
