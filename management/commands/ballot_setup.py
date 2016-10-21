@@ -28,6 +28,9 @@ class Command(BaseCommand):
         browser.close()
         browser.quit()
 
+        # e.g., /Users/jheasly/Development/ballot/management
+        FILE_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
+
 
         # '''
         # START Excel sheets
