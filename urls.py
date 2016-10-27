@@ -4,6 +4,7 @@ from django.views.decorators.cache import cache_page
 from ballot.models import Contest
 from ballot.views import json_results, json_wire_stories
 
+
 '''
 Better for primaries:
 'queryset': Contest.objects.order_by('region', 'contest_wrapper', 'contest_number',),
@@ -54,6 +55,6 @@ urlpatterns = patterns('',
     (r'^results/main/check/$', 'ballot.views.main_web'),
 
     (r'^json/$', json_results),
-    (r'^json/(?P<geo>[a-z]{6})?/?$', json_results),
+    (r'^json/(?P<geo>[a-z]{6})/$', json_results),
     (r'^json/ap_elex_stories/(?P<story_count>\d\d?)/$', json_wire_stories),
 )

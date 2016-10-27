@@ -9,10 +9,11 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.utils import simplejson
 from django.utils.dateformat import DateFormat
-from django.views.decorators.cache import cache_page, never_cache
+# from django.views.decorators.cache import cache_page
 from django.views.generic.list_detail import object_list
 from ballot.models import Contest
 from ap_wfm.models import APStory
+from fancy_cache import cache_page
 from sorl.thumbnail import get_thumbnail
 
 # Create your views here.
@@ -136,8 +137,8 @@ def print_file(request):
     resp['Content-Disposition'] = 'attachment; filename=election-results.txt'
     return resp
 
-# @never_cache
-def json_results(request, **kwargs):
+@cache_page(15 * 60, only_get_keys=['floobert'])
+def json_results(request, geo=None, **kwargs):
 
     queryset = []
     race_queryset = []
@@ -145,64 +146,37 @@ def json_results(request, **kwargs):
     queryset_dict = {}
 
     # Check for region-specific URL request
-    if 'geo' in kwargs:
-        geography = kwargs['geo']
+    if geo:
+        geography = geo
 
+        # Eugene/Springfield races
         if geography == 'eugspr':
-            if cache.get('eugspr'):
-                queryset = cache.get('eugspr')
-            else:
-                queryset = Contest.objects.filter(region__name='Eugene/Springfield').order_by('contest_number')
-                cache.set('laneco', queryset, 60 * 60)
+            queryset = Contest.objects.filter(region__name='Eugene/Springfield').order_by('contest_number')
             queryset_dict['options'] = queryset
-
-        # if geography == 'eugspr':
-        #     queryset = Contest.objects.filter(region__name='Eugene/Springfield').order_by('contest_number')
-        #     queryset_dict['options'] = queryset
 
         # Lane County races
         if geography == 'laneco':
-            if cache.get('laneco'):
-                queryset = cache.get('laneco')
-            else:
-                queryset = Contest.objects.filter(region__name='Lane County').exclude(name__startswith='20-').order_by('contest_number')
-                cache.set('laneco', queryset, 60 * 60)
+            queryset = Contest.objects.filter(region__name='Lane County').order_by('contest_number')
             queryset_dict['options'] = queryset
 
         # Any non-state, non-Lane County races, measures we cover
         if geography == 'region':
-            if cache.get('region'):
-                queryset = cache.get('region')
-            else:
-                queryset = Contest.objects.filter(region__name='Region').order_by('contest_number')
-                cache.set('region', queryset, 60 * 60)
+            queryset = Contest.objects.filter(region__name='Region').order_by('contest_number')
             queryset_dict['options'] = queryset
 
         # Lane County measures
         if geography == 'laneme':
-            if cache.get('laneme'):
-                queryset = cache.get('laneme')
-            else:
-                queryset = Contest.objects.filter(region__name='Lane County', name__startswith='20-').order_by('contest_number')
-                cache.set('laneme', queryset, 60 * 60)
+            queryset = Contest.objects.filter(region__name='Lane County', name__startswith='20-').order_by('contest_number')
             queryset_dict['options'] = queryset
 
         # State races; Lane County votes, state votes
         if geography == 'stater':
-            if cache.get('stater'):
-                queryset = cache.get('stater')
-            else:
-                queryset = Contest.objects.filter(statewide=True).exclude(name__regex=r'^\d\d$').order_by('contest_number')
-                cache.set('stater', queryset, 60 * 60)
+            queryset = Contest.objects.filter(statewide=True).exclude(name__regex=r'^\d\d$').order_by('contest_number')
             queryset_dict['options'] = queryset
 
         # State measures; Lane County votes, state votes
         if geography == 'statem':
-            if cache.get('statem'):
-                queryset = cache.get('statem')
-            else:
-                queryset = Contest.objects.filter(statewide=True, name__regex=r'^\d\d$').order_by('contest_number')
-                cache.set('statem', queryset, 60 * 60)
+            queryset = Contest.objects.filter(statewide=True, name__regex=r'^\d\d$').order_by('contest_number')
             queryset_dict['options'] = queryset
 
         # Top two races, top three measures
@@ -211,6 +185,7 @@ def json_results(request, **kwargs):
             meas_queryset = Contest.objects.filter(is_race=False, web_front=True)
             queryset_dict['race'] = race_queryset
             queryset_dict['measure'] = meas_queryset
+
     else:
         queryset = Contest.objects.filter(contest_wrapper__isnull=False).order_by('contest_wrapper', 'name')
         queryset_dict['options'] = queryset
