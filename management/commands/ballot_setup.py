@@ -20,6 +20,8 @@ class ScrapingBrowser(webdriver.Chrome):
 
 
 class Command(BaseCommand):
+    # TODO: Prior to download, check to see if there's already and
+    # Lane_County_Media_Export.csv and if so, DELETE ... 
     def handle(self, *args, **options):
         browser = ScrapingBrowser(SITE_ADDR)
         time.sleep(3)
