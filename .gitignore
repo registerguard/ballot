@@ -2,3 +2,4 @@
 *.xml
 fixtures/*
 sav/*
+management/commands/*/*.json
