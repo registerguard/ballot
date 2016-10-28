@@ -44,4 +44,4 @@ class Command(BaseCommand):
                 os.path.join(AWS_JSON_DIRECTORY, json_file),
                 AWS_BUCKET)
             )
-            s3.meta.client.upload_file( os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY, json_file), AWS_BUCKET, os.path.join(AWS_JSON_DIRECTORY, json_file), ExtraArgs={'ContentType': "application/json"} )
+            s3.meta.client.upload_file( os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY, json_file), AWS_BUCKET, os.path.join(AWS_JSON_DIRECTORY, json_file), ExtraArgs={'ContentType': "application/json", 'ACL': "public-read"} )
