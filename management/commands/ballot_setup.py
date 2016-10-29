@@ -1,5 +1,6 @@
 from ballot.models import Cand_yes_no
 from django.core.management.base import BaseCommand, CommandError
+
 import os
 import sys
 import time
