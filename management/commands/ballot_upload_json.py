@@ -24,7 +24,7 @@ FILE_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__)))
 
 class Command(BaseCommand):
     help = '''Downloads a hard-coded list of URLs that provide json files and
-    uploads them to a hard-coded AWS S3 bucket.'''
+ uploads them to a hard-coded AWS S3 bucket.'''
 
     def handle(self, *args, **options):
         s3 = boto3.resource('s3')

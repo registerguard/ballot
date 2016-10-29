@@ -8,6 +8,8 @@ import pprint
 import time
 
 SITE_ADDR = 'http://results.oregonvotes.gov/ResultsExport.aspx'
+BROWSER_DOWNLOAD_DIR = '/Users/jheasly/Downloads'
+CSV_FILE_NAME = 'Lane_County_Media_Export.csv'
 
 class ScrapingBrowser(webdriver.Chrome):
     def __init__(self, addr, *args, **kwargs):
@@ -21,8 +23,15 @@ class ScrapingBrowser(webdriver.Chrome):
 
 class Command(BaseCommand):
     # TODO: Prior to download, check to see if there's already and
-    # Lane_County_Media_Export.csv and if so, DELETE ... 
+    # Lane_County_Media_Export.csv and if so, DELETE ...
+
+    help = '''Run this one-time only per election. It DELETES all the Contest,
+ Cand_yes_no and Contest model data from the previous election (It leaves the
+  Region data alone, however!). It does a quick-and-dirty creation of the races
+  and measures for you.'''
+
     def handle(self, *args, **options):
+        # Selenium replicates browser click to download .csv
         browser = ScrapingBrowser(SITE_ADDR)
         time.sleep(3)
         browser.click_county_download('/html/body/form/div[4]/div[4]/div[3]/div/div[20]/a')
