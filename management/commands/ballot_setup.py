@@ -1,13 +1,13 @@
 from ballot.models import Cand_yes_no
 from django.core.management.base import BaseCommand, CommandError
+import os
+import sys
+import time
+
 try:
     from selenium import webdriver
-    has_selenium = True
 except ImportError:
-    has_selenium = False
-import os
-import pprint
-import time
+    sys.exit('This script meant for local use only.\n')
 
 SITE_ADDR = 'http://results.oregonvotes.gov/ResultsExport.aspx'
 BROWSER_DOWNLOAD_DIR = '/Users/jheasly/Downloads'
@@ -33,19 +33,16 @@ class Command(BaseCommand):
   and measures for you.'''
 
     def handle(self, *args, **options):
-        if has_selenium:
-            # Selenium replicates browser click to download .csv
-            browser = ScrapingBrowser(SITE_ADDR)
-            time.sleep(3)
-            browser.click_county_download('/html/body/form/div[4]/div[4]/div[3]/div/div[20]/a')
-            time.sleep(10)
-            browser.close()
-            browser.quit()
+        # Selenium replicates browser click to download .csv
+        browser = ScrapingBrowser(SITE_ADDR)
+        time.sleep(3)
+        browser.click_county_download('/html/body/form/div[4]/div[4]/div[3]/div/div[20]/a')
+        time.sleep(10)
+        browser.close()
+        browser.quit()
 
-            # e.g., /Users/jheasly/Development/ballot/management
-            FILE_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
-        else:
-            self.stdout.write('This script meant for local use only.\n')
+        # e.g., /Users/jheasly/Development/ballot/management
+        FILE_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
 
 
         # '''
