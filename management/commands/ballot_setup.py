@@ -8,7 +8,7 @@ import time
 try:
     from selenium import webdriver
 except ImportError:
-    sys.exit('This script meant for local use only.\n')
+    sys.exit('This script meant for local use only.')
 
 SITE_ADDR = 'http://results.oregonvotes.gov/ResultsExport.aspx'
 BROWSER_DOWNLOAD_DIR = '/Users/jheasly/Downloads'
