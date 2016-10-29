@@ -1,8 +1,10 @@
 from ballot.models import Cand_yes_no
 from django.core.management.base import BaseCommand, CommandError
-from selenium import webdriver
-# from xlrd import open_workbook
-
+try:
+    from selenium import webdriver
+    has_selenium = True
+except ImportError:
+    has_selenium = False
 import os
 import pprint
 import time
@@ -31,16 +33,19 @@ class Command(BaseCommand):
   and measures for you.'''
 
     def handle(self, *args, **options):
-        # Selenium replicates browser click to download .csv
-        browser = ScrapingBrowser(SITE_ADDR)
-        time.sleep(3)
-        browser.click_county_download('/html/body/form/div[4]/div[4]/div[3]/div/div[20]/a')
-        time.sleep(10)
-        browser.close()
-        browser.quit()
+        if has_selenium:
+            # Selenium replicates browser click to download .csv
+            browser = ScrapingBrowser(SITE_ADDR)
+            time.sleep(3)
+            browser.click_county_download('/html/body/form/div[4]/div[4]/div[3]/div/div[20]/a')
+            time.sleep(10)
+            browser.close()
+            browser.quit()
 
-        # e.g., /Users/jheasly/Development/ballot/management
-        FILE_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
+            # e.g., /Users/jheasly/Development/ballot/management
+            FILE_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
+        else:
+            self.stdout.write('This script meant for local use only.\n')
 
 
         # '''

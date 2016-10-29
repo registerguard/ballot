@@ -1,6 +1,10 @@
 from django.core.management.base import BaseCommand, CommandError
 
-import boto3
+try:
+    import boto3
+    has_boto3 = True
+except ImportError:
+    has_boto3 = False
 import requests
 
 import os
@@ -27,21 +31,24 @@ class Command(BaseCommand):
  uploads them to a hard-coded AWS S3 bucket.'''
 
     def handle(self, *args, **options):
-        s3 = boto3.resource('s3')
+        if has_boto3:
+            s3 = boto3.resource('s3')
 
-        for url in URLS:
-            self.stdout.write("Downloading\n    '{0}' ... \n".format(url))
-            r = requests.get(url)
-            with open(os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY, '{0}.json'.format(url.split('/')[-2])), 'wb+') as json_file:
-                json_file.write(r.content)
+            for url in URLS:
+                self.stdout.write("Downloading\n    '{0}' ... \n".format(url))
+                r = requests.get(url)
+                with open(os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY, '{0}.json'.format(url.split('/')[-2])), 'wb+') as json_file:
+                    json_file.write(r.content)
 
-        # get the list of files (and _only_ files; os.listdir() gives you directories & files ... ) you just wrote ...
-        json_file_list = [f for f in os.listdir(os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY)) if os.path.isfile(os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY, f))]
+            # get the list of files (and _only_ files; os.listdir() gives you directories & files ... ) you just wrote ...
+            json_file_list = [f for f in os.listdir(os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY)) if os.path.isfile(os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY, f))]
 
-        for json_file in json_file_list:
-            self.stdout.write("Uploading\n    '{0}'\n    to '{1}'\n    in AWS S3 bucket '{2}' ... \n".format(
-                os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY, json_file),
-                os.path.join(AWS_JSON_DIRECTORY, json_file),
-                AWS_BUCKET)
-            )
-            s3.meta.client.upload_file( os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY, json_file), AWS_BUCKET, os.path.join(AWS_JSON_DIRECTORY, json_file), ExtraArgs={'ContentType': "application/json", 'ACL': "public-read"} )
+            for json_file in json_file_list:
+                self.stdout.write("Uploading\n    '{0}'\n    to '{1}'\n    in AWS S3 bucket '{2}' ... \n".format(
+                    os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY, json_file),
+                    os.path.join(AWS_JSON_DIRECTORY, json_file),
+                    AWS_BUCKET)
+                )
+                s3.meta.client.upload_file( os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY, json_file), AWS_BUCKET, os.path.join(AWS_JSON_DIRECTORY, json_file), ExtraArgs={'ContentType': "application/json", 'ACL': "public-read"} )
+            else:
+                self.stdout.write('This script intended for local use only.\n')
