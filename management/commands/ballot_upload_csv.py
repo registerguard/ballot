@@ -22,10 +22,9 @@ class ScrapingBrowser(webdriver.Chrome):
 
 
 class Command(BaseCommand):
-    help = '''Run this one-time only per election. It DELETES all the Contest,
- Cand_yes_no and Contest model data from the previous election (It leaves the
- Region data alone, however!). It does a quick-and-dirty creation of the races
- and measures for you.'''
+    help = '''Simulates a browser JavaScript click required to download .csv
+ file from Oregon Secretary of State website. It then uploads file to desired
+ server.'''
 
     def handle(self, *args, **options):
         # Check to see if there's already a copy of the .csv file downloaded
