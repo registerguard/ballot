@@ -3,3 +3,4 @@
 fixtures/*
 sav/*
 management/commands/*/*.json
+management/commands/ballot_settings.py
