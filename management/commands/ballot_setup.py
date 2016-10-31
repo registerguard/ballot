@@ -135,7 +135,7 @@ class Command(BaseCommand):
                         'name': contest_item[1][0][1],
                         'precincts': contest_item[1][0][9].split('/')[1],
                         'precincts_counted': contest_item[1][0][9].split('/')[0],
-                        'region_id': 4, # Default to Lane County
+                        'region_id': csv_file_name['region_id'], # Default to Lane County
                         'print_only': True,
                     }
                 )
