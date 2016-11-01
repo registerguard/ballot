@@ -62,4 +62,7 @@ Votes! {6}\n'''.format(contest_name,\
                             contestant_to_update.save()
 
                         self.stdout.write('''Updating {0} of {1}
-    ... {2} votes ...'''.format(contestant_name, contest_name, lane_votes))
+    ... {2} votes ...\n'''.format(contestant_name, contest_name, lane_votes))
+
+        self.stdout.write('''Done parsing {0} that were in {1}
+'''.format([i['file'] for i in CSV_FILE_NAMES], CSV_DIRECTORY))
