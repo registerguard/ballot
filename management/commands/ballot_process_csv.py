@@ -20,8 +20,49 @@ class Command(BaseCommand):
                     # only process SOS results we're interested in!
                     if csv_file_name['check_if_needed']:
                         if int(result_row[0]) in LANE_CONTEST_IDS:
-                            print result_row[1]
-                    else: # It's from Lane County! Process every row!
+                            contest_name,\
+                            contestant_name,\
+                            contest_number,\
+                            candidate_number,\
+                            total_precincts,\
+                            precincts_counted,\
+                            votes_other = result_row[1],\
+                            result_row[8],\
+                            int(result_row[0]),\
+                            int(result_row[7]),\
+                            int(result_row[13].split('/')[1]),\
+                            int(result_row[13].split('/')[0]),\
+                            int(result_row[11])
+
+                            self.stdout.write('''Contest name:{0}
+Contestant: {1}
+Contest number: {2}
+Candidate number: {3}
+Total precincts: {4}
+Precincts counted: {5}
+Votes! {6}\n'''.format(contest_name,\
+                            contestant_name,\
+                            contest_number,\
+                            candidate_number,\
+                            total_precincts,\
+                            precincts_counted,\
+                            votes_other))
+
+                            contestant_to_update = Cand_yes_no.objects.get(
+                                contest__contest_number=contest_number,
+                                candidate_number=candidate_number,
+                            )
+                            contestant_to_update.votes_other = votes_other
+                            contestant_to_update.save()
+
+                            if precincts_counted:
+                                contestant_to_update.contest.precincts_counted = precincts_counted
+                                contestant_to_update.save()
+
+                            self.stdout.write('''Updating {0} of {1}
+    ... {2} votes ...\n'''.format(contestant_name, contest_name, votes_other))
+                    else:
+                        # It's from Lane County! Process every .csv row!
                         contest_name,\
                         contestant_name,\
                         contest_number,\
