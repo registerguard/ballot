@@ -166,17 +166,17 @@ def json_results(request, geo=None, **kwargs):
 
         # Lane County measures
         if geography == 'laneme':
-            queryset = Contest.objects.filter(region__name='Lane County', name__startswith='20-').order_by('contest_number')
+            queryset = Contest.objects.filter(region__name='Measures', name__startswith='20-').order_by('contest_number')
             queryset_dict['options'] = queryset
 
         # State races; Lane County votes, state votes
         if geography == 'stater':
-            queryset = Contest.objects.filter(statewide=True).exclude(name__regex=r'^\d\d$').order_by('contest_number')
+            queryset = Contest.objects.filter(statewide=True).exclude(name__regex=r'^\d\d\d?$').order_by('contest_number')
             queryset_dict['options'] = queryset
 
         # State measures; Lane County votes, state votes
         if geography == 'statem':
-            queryset = Contest.objects.filter(statewide=True, name__regex=r'^\d\d$').order_by('contest_number')
+            queryset = Contest.objects.filter(statewide=True, name__regex=r'^\d\d\d?$').order_by('contest_number')
             queryset_dict['options'] = queryset
 
         # Top two races, top three measures
