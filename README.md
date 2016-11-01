@@ -7,6 +7,13 @@
 
 ![screenshot 2016-05-18 14 50 01](https://cloud.githubusercontent.com/assets/96007/15378391/e74786ba-1d17-11e6-8828-80c8a730f442.png)
 
+#### Once:
+1. `ballot_setup` (remote; a one-time-per-election thing)  
+#### To update:
+1. `ballot_upload_csv` (local; browser-fake JavaScript click to download .csv, upload file to server)
+2. `ballot_process_csv` (remote; insert .csv data in server db)
+3. `ballot_upload_json` (local; make JSON from URL requests, upload to AWS S3 bucket)
+
 Current hacky set-up:  
 
 1. Make copies of:  
