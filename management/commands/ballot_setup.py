@@ -168,7 +168,7 @@ class Command(BaseCommand):
                         d.cand_yes_no_set.create(
                             contest = d,
                             name = a_contest_name,
-                            candidate_number = int(contest_details[0]),
+                            candidate_number = int(contest_details[3]),
                             affiliation = affiliation,
                             incumbent = False,
                         )

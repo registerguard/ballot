@@ -137,7 +137,7 @@ def print_file(request):
     resp['Content-Disposition'] = 'attachment; filename=election-results.txt'
     return resp
 
-@cache_page(15 * 60, only_get_keys=['floobert'])
+# @cache_page(15 * 60, only_get_keys=['floobert'])
 def json_results(request, geo=None, **kwargs):
 
     queryset = []

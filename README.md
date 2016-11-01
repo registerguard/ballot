@@ -8,6 +8,7 @@
 ![screenshot 2016-05-18 14 50 01](https://cloud.githubusercontent.com/assets/96007/15378391/e74786ba-1d17-11e6-8828-80c8a730f442.png)
 
 #### Once:
+1. `ballot_upload_csv` (local)
 1. `ballot_setup` (remote; a one-time-per-election thing)  
 
 #### To update:
