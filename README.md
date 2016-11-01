@@ -9,6 +9,7 @@
 
 #### Once:
 1. `ballot_setup` (remote; a one-time-per-election thing)  
+
 #### To update:
 1. `ballot_upload_csv` (local; browser-fake JavaScript click to download .csv, upload file to server)
 2. `ballot_process_csv` (remote; insert .csv data in server db)
