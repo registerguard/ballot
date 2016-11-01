@@ -1,4 +1,5 @@
-from ballot.management.commands.ballot_settings import CSV_FILE_NAMES
+from ballot.management.commands.ballot_settings import CSV_FILE_NAMES,\
+    LANE_CONTEST_IDS
 
 from ballot.models import Cand_yes_no, Contest, Contest_wrapper, Region
 from django.core.management.base import BaseCommand, CommandError
@@ -115,60 +116,62 @@ class Command(BaseCommand):
                                defaults={'name': region})
 
             for contest_item in out_list:
-                wrapper, position = ('', '')
-                try:
-                    wrapper, position = contest_item[1][0][1].split(',', 1)
-                    wrapper = wrapper.replace('Commissioner', '').strip()
-                    wrapper = wrapper.replace('Director', '').strip()
-                    position = position.strip()
-                except ValueError:
-                    wrapper = contest_item[1][0][1].strip()
-                    position = ''
+                # See if it's contest we're interested in.
+                if contest_item[0] in LANE_CONTEST_IDS:
+                    wrapper, position = ('', '')
+                    try:
+                        wrapper, position = contest_item[1][0][1].split(',', 1)
+                        wrapper = wrapper.replace('Commissioner', '').strip()
+                        wrapper = wrapper.replace('Director', '').strip()
+                        position = position.strip()
+                    except ValueError:
+                        wrapper = contest_item[1][0][1].strip()
+                        position = ''
 
-                # Fix stuff like "LINN SOIL AND WATER CONSERVATION DISTRICT"
-                if wrapper.isupper():
-                    wrapper = wrapper.title()
+                    # Fix stuff like "LINN SOIL AND WATER CONSERVATION DISTRICT"
+                    if wrapper.isupper():
+                        wrapper = wrapper.title()
 
-                new_contest, created = Contest.objects.get_or_create(
-                    contest_number=contest_item[1][0][0],
-                    defaults={
-                        'name': contest_item[1][0][1],
-                        'precincts': contest_item[1][0][9].split('/')[1],
-                        'precincts_counted': contest_item[1][0][9].split('/')[0],
-                        'region_id': csv_file_name['region_id'], # Default to Lane County
-                        'print_only': True,
-                    }
-                )
-                if created:
-                    # A Contest can exist twice: Once in the Lane County results
-                    # and once in the Statewide, i.e. President or Governor,
-                    # but we don't want to enter it twice in our Contest
-                    # collection, so we check if we already have it. If it's
-                    # new, so let's add & populate it, if not, we already
-                    # had it, so we can skip it.
-                    new_contest.save()
-                    c = new_contest.id
-
-                    if wrapper:
-                        cw, created = Contest_wrapper.objects.get_or_create(name=wrapper)
-                        new_contest.contest_wrapper = cw
-                        new_contest.name = position
+                    new_contest, created = Contest.objects.get_or_create(
+                        contest_number=contest_item[1][0][0],
+                        defaults={
+                            'name': contest_item[1][0][1],
+                            'precincts': contest_item[1][0][9].split('/')[1],
+                            'precincts_counted': contest_item[1][0][9].split('/')[0],
+                            'region_id': csv_file_name['region_id'], # Default to Lane County
+                            'print_only': True,
+                        }
+                    )
+                    if created:
+                        # A Contest can exist twice: Once in the Lane County results
+                        # and once in the Statewide, i.e. President or Governor,
+                        # but we don't want to enter it twice in our Contest
+                        # collection, so we check if we already have it. If it's
+                        # new, so let's add & populate it, if not, we already
+                        # had it, so we can skip it.
                         new_contest.save()
+                        c = new_contest.id
 
-                    d = Contest.objects.get(pk = c)
-                    for contest_details in contest_item[1]:
-                        if contest_details[2]:
-                            affiliation = AFFILIATION_LOOKUP.get(contest_details[2], '')
-                        else:
-                            affiliation = ''
-                        if contest_details[4].isupper():
-                            a_contest_name = contest_details[4].lower()
-                        else:
-                            a_contest_name = contest_details[4]
-                        d.cand_yes_no_set.create(
-                            contest = d,
-                            name = a_contest_name,
-                            candidate_number = int(contest_details[3]),
-                            affiliation = affiliation,
-                            incumbent = False,
-                        )
+                        if wrapper:
+                            cw, created = Contest_wrapper.objects.get_or_create(name=wrapper)
+                            new_contest.contest_wrapper = cw
+                            new_contest.name = position
+                            new_contest.save()
+
+                        d = Contest.objects.get(pk = c)
+                        for contest_details in contest_item[1]:
+                            if contest_details[2]:
+                                affiliation = AFFILIATION_LOOKUP.get(contest_details[2], '')
+                            else:
+                                affiliation = ''
+                            if contest_details[4].isupper():
+                                a_contest_name = contest_details[4].lower()
+                            else:
+                                a_contest_name = contest_details[4]
+                            d.cand_yes_no_set.create(
+                                contest = d,
+                                name = a_contest_name,
+                                candidate_number = int(contest_details[3]),
+                                affiliation = affiliation,
+                                incumbent = False,
+                            )
