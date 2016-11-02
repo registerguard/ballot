@@ -34,13 +34,13 @@ class Command(BaseCommand):
                             int(result_row[13].split('/')[0]),\
                             int(result_row[11])
 
-                            self.stdout.write('''Contest name:{0}
+                            self.stdout.write(''' Contest name:{0}
 Contestant: {1}
 Contest number: {2}
 Candidate number: {3}
 Total precincts: {4}
 Precincts counted: {5}
-STATE votes! {6}\n'''.format(contest_name,\
+STATE votes! {6}\n\n'''.format(contest_name,\
                             contestant_name,\
                             contest_number,\
                             candidate_number,\
@@ -77,13 +77,13 @@ STATE votes! {6}\n'''.format(contest_name,\
                         int(result_row[13].split('/')[0]),\
                         int(result_row[11])
 
-                        self.stdout.write('''Contest name:{0}
+                        self.stdout.write('''Contest name: {0}
 Contestant: {1}
 Contest number: {2}
 Candidate number: {3}
 Total precincts: {4}
 Precincts counted: {5}
-LANE COUNTY votes! {6}\n'''.format(contest_name,\
+LANE COUNTY votes! {6}\n\n'''.format(contest_name,\
                         contestant_name,\
                         contest_number,\
                         candidate_number,\

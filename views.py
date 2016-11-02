@@ -289,6 +289,7 @@ def json_results(request, geo=None, **kwargs):
         response = HttpResponse(json_data, mimetype='application/javascript')
     return response
 
+@cache_page(5 * 60, only_get_keys=['floobert'])
 def json_wire_stories(request, **kwargs):
     current_site = Site.objects.get(id=settings.SITE_ID)
 
