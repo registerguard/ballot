@@ -19,7 +19,7 @@
 3. `ballot_upload_json` (local; make JSON from URL requests, upload to AWS S3 bucket)
 
 --------
-##### Old/previous setup:
+#### Old/pre-Nov. 1, 2016, setup:
 
 Current hacky set-up:  
 
