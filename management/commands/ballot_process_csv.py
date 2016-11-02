@@ -40,7 +40,7 @@ Contest number: {2}
 Candidate number: {3}
 Total precincts: {4}
 Precincts counted: {5}
-Votes! {6}\n'''.format(contest_name,\
+STATE votes! {6}\n'''.format(contest_name,\
                             contestant_name,\
                             contest_number,\
                             candidate_number,\
@@ -83,7 +83,7 @@ Contest number: {2}
 Candidate number: {3}
 Total precincts: {4}
 Precincts counted: {5}
-Votes! {6}\n'''.format(contest_name,\
+LANE COUNTY votes! {6}\n'''.format(contest_name,\
                         contestant_name,\
                         contest_number,\
                         candidate_number,\

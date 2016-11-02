@@ -1,3 +1,4 @@
+from ballot.management.commands.ballot_settings import JSON_URLS
 from django.core.management.base import BaseCommand, CommandError
 
 import sys
@@ -9,17 +10,6 @@ except ImportError:
 import requests
 
 import os
-
-URLS = (
-    'http://projects.registerguard.com/ballot/json/',
-    'http://projects.registerguard.com/ballot/json/eugspr/',
-    'http://projects.registerguard.com/ballot/json/laneco/',
-    'http://projects.registerguard.com/ballot/json/region/',
-    'http://projects.registerguard.com/ballot/json/laneme/',
-    'http://projects.registerguard.com/ballot/json/stater/',
-    'http://projects.registerguard.com/ballot/json/statem/',
-    'http://projects.registerguard.com/ballot/json/topset/',
-)
 
 LOCAL_JSON_DIRECTORY = 'json'
 AWS_JSON_DIRECTORY = 'results'
@@ -34,7 +24,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         s3 = boto3.resource('s3')
 
-        for url in URLS:
+        for url in JSON_URLS:
             self.stdout.write("Downloading\n    '{0}' ... \n".format(url))
             r = requests.get(url)
             with open(os.path.join(FILE_PATH, LOCAL_JSON_DIRECTORY, '{0}.json'.format(url.split('/')[-2])), 'wb+') as json_file:
