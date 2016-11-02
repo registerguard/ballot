@@ -1,11 +1,13 @@
 # ballot
- 
+
 
 ### Online and print election results from Lane County  
 
 ![ballot](https://cloud.githubusercontent.com/assets/96007/15377445/8f7dc02c-1d10-11e6-8756-68438b1acf2a.png)
 
 ![screenshot 2016-05-18 14 50 01](https://cloud.githubusercontent.com/assets/96007/15378391/e74786ba-1d17-11e6-8828-80c8a730f442.png)
+
+### Update: Nov. 1, 2016
 
 #### Once:
 1. `ballot_upload_csv` (local)
@@ -15,6 +17,9 @@
 1. `ballot_upload_csv` (local; browser-fake JavaScript click to download .csv, upload file to server)
 2. `ballot_process_csv` (remote; insert .csv data in server db)
 3. `ballot_upload_json` (local; make JSON from URL requests, upload to AWS S3 bucket)
+
+--------
+##### Old/previous setup:
 
 Current hacky set-up:  
 
