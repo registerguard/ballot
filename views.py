@@ -333,6 +333,7 @@ def json_wire_stories(request, **kwargs):
     callback = request.GET.get('callback')
     if callback:
         response = HttpResponse('%s(%s);' % (callback, json_data), mimetype='application/javascript; charset=utf-8')
+        response['Cache-Control'] = 'no-cache'
     else:
         response = HttpResponse(json_data, mimetype='application/javascript; charset=utf-8')
     return response

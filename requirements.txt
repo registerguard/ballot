@@ -4,6 +4,7 @@ boto3==1.4.1
 botocore==1.4.69
 django-cuddlybuddly-storage-s3==3.2
 django-cuddlybuddly-thumbnail==2.6
+django-debug-toolbar==0.9.4
 django-fancy-cache==0.8.0
 docutils==0.12
 futures==3.0.5
