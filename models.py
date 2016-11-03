@@ -92,7 +92,7 @@ class Contest(models.Model):
         return humanize_list([ item.name for item in self.cand_yes_no_set.all() ])
     
     def exclude_odd_bits(self):
-        return self.cand_yes_no_set.exclude(name='write-in').exclude(name='over votes').exclude(name='under votes')
+        return self.cand_yes_no_set.exclude(name='Write-in').exclude(name='over votes').exclude(name='under votes')
     
     def no_one_filed(self):
         from sets import Set

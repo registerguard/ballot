@@ -21,11 +21,11 @@ from sorl.thumbnail import get_thumbnail
 def box_web(request):
     return object_list(
         request,
-        queryset = Contest.objects.filter(Q(region__name='National') | Q(region__name='Oregon')).exclude(name__regex=r'^\d\d$').order_by('region__name', 'contest_number'),
+        queryset = Contest.objects.filter(Q(region__name='National') | Q(region__name='Oregon')).exclude(name__regex=r'^\d\d\d?$').order_by('region__name', 'contest_number'),
 #         queryset = Contest.objects.filter(region__name='National and State').order_by('region__name', 'contest_number'),
         template_name = 'ballot/box_list_check.html',
         extra_context = {
-            'state_measures_list': lambda: Contest.objects.filter(name__regex=r'^\d\d$').order_by('name',),
+            'state_measures_list': lambda: Contest.objects.filter(name__regex=r'^\d\d\d?$').order_by('name',),
             'lane_measures_list' : lambda: Contest.objects.filter(name__startswith='20-'),
 #             'regional_measures_list' : lambda: Contest.objects.filter(region__name='National and State').order_by('-contest_wrapper__name', 'name'),
             'regional_measures_list' : lambda: Contest.objects.filter(name__regex=r'^(6|10|21|)\-\d+').order_by('region__name', 'name'),
@@ -33,17 +33,18 @@ def box_web(request):
     )
 
 def box_print(request):
-    queryset = Contest.objects.filter(Q(region__name='National') | Q(region__name='Oregon')).exclude(name__regex=r'^\d\d$').order_by('region__name', 'contest_number')
+    queryset = Contest.objects.filter(Q(region__name='National') | Q(region__name='Oregon')).exclude(name__regex=r'^\d\d\d?$').order_by('region__name', 'contest_number')
     t = loader.get_template('ballot/box_list.html')
     c = RequestContext(request,
         {
             'object_list': queryset,
-            'state_measures_list': lambda: Contest.objects.filter(name__regex=r'^\d\d$').order_by('name',),
-            'lane_measures_list' : lambda: Contest.objects.filter(name__startswith='20-').order_by('name',),
+            'state_measures_list': lambda: Contest.objects.filter(name__regex=r'^\d\d\d?$').order_by('contest_number',),
+            'lane_measures_list' : lambda: Contest.objects.filter(name__startswith='20-').order_by('contest_number',),
             'regional_measures_list' : lambda: Contest.objects.filter(name__regex=r'^(6|10|21|)\-\d+').order_by('region__name', 'name'),
         }
     )
     data = t.render(c)
+    data = data.encode('utf-16-le')
     r = HttpResponse(data, mimetype='text/plain;charset=utf-16le')
     r['Content-Disposition'] = 'attachment; filename=box.txt;'
     return r
@@ -105,11 +106,12 @@ def main_print(request):
     c = RequestContext(request,
         {
             'object_list': queryset,
-            'lane_county': lambda: Contest.objects.filter(region__name='Lane County', print_only=True, contest_wrapper__isnull=False).exclude(name__regex=r'^\d\d+').order_by('contest_wrapper', 'name'),
+            'lane_county': lambda: Contest.objects.filter(region__name='Lane County', print_only=True, contest_wrapper__isnull=False).exclude(name__regex=r'^\d\d\d?+').order_by('contest_wrapper', 'name'),
             'region': lambda: Contest.objects.filter(region__name='Region').exclude(is_race=False).order_by('contest_wrapper', 'name'),
         }
     )
     data = t.render(c)
+    data = data.encode('utf-16-le')
     r = HttpResponse(data, mimetype='text/plain;charset=utf-16le')
     r['Content-Disposition'] = 'attachment; filename=main.txt;'
     return r
@@ -330,7 +332,7 @@ def json_wire_stories(request, **kwargs):
 
     callback = request.GET.get('callback')
     if callback:
-        response = HttpResponse('%s(%s);' % (callback, json_data), mimetype='application/javascript')
+        response = HttpResponse('%s(%s);' % (callback, json_data), mimetype='application/javascript; charset=utf-8')
     else:
-        response = HttpResponse(json_data, mimetype='application/javascript')
+        response = HttpResponse(json_data, mimetype='application/javascript; charset=utf-8')
     return response
