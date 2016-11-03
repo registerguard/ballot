@@ -106,7 +106,7 @@ def main_print(request):
     c = RequestContext(request,
         {
             'object_list': queryset,
-            'lane_county': lambda: Contest.objects.filter(region__name='Lane County', print_only=True, contest_wrapper__isnull=False).exclude(name__regex=r'^\d\d\d?+').order_by('contest_wrapper', 'name'),
+            'lane_county': lambda: Contest.objects.filter(region__name='Lane County', print_only=True, contest_wrapper__isnull=False).exclude(name__regex=r'^\d\d\d?').order_by('contest_wrapper', 'name'),
             'region': lambda: Contest.objects.filter(region__name='Region').exclude(is_race=False).order_by('contest_wrapper', 'name'),
         }
     )
