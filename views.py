@@ -291,7 +291,16 @@ def json_results(request, geo=None, **kwargs):
         response = HttpResponse(json_data, mimetype='application/javascript')
     return response
 
-@cache_page(5 * 60, only_get_keys=['floobert'])
+
+def add_junk(response, request):
+    junk = response.content
+    callback, data = junk.split("(")
+    callback = request.GET.get('callback')
+    newjunk = '%s(%s' % (callback, data)
+    response.content = newjunk
+    return response
+
+@cache_page(5 * 60, only_get_keys=['floobert'], post_process_response_always=add_junk)
 def json_wire_stories(request, **kwargs):
     current_site = Site.objects.get(id=settings.SITE_ID)
 
