@@ -153,32 +153,32 @@ def json_results(request, geo=None, **kwargs):
 
         # Eugene/Springfield races
         if geography == 'eugspr':
-            queryset = Contest.objects.filter(region__name='Eugene/Springfield').order_by('contest_number')
+            queryset = Contest.objects.filter(region__name='Eugene/Springfield').order_by('contest_wrapper__hard_coded_order', 'contest_number')
             queryset_dict['options'] = queryset
 
         # Lane County races
         if geography == 'laneco':
-            queryset = Contest.objects.filter(region__name='Lane County').order_by('contest_number')
+            queryset = Contest.objects.filter(region__name='Lane County').order_by('contest_wrapper__hard_coded_order', 'contest_number')
             queryset_dict['options'] = queryset
 
         # Any non-state, non-Lane County races, measures we cover
         if geography == 'region':
-            queryset = Contest.objects.filter(region__name='Region').order_by('contest_number')
+            queryset = Contest.objects.filter(region__name='Region').order_by('contest_wrapper__hard_coded_order', 'contest_number')
             queryset_dict['options'] = queryset
 
         # Lane County measures
         if geography == 'laneme':
-            queryset = Contest.objects.filter(region__name='Measures', name__startswith='20-').order_by('contest_number')
+            queryset = Contest.objects.filter(region__name='Measures', name__startswith='20-').order_by('contest_wrapper__hard_coded_order', 'contest_number')
             queryset_dict['options'] = queryset
 
         # State races; Lane County votes, state votes
         if geography == 'stater':
-            queryset = Contest.objects.filter(statewide=True).exclude(name__regex=r'^\d\d\d?$').order_by('contest_number')
+            queryset = Contest.objects.filter(statewide=True).exclude(name__regex=r'^\d\d\d?$').order_by('contest_wrapper__hard_coded_order', 'contest_number')
             queryset_dict['options'] = queryset
 
         # State measures; Lane County votes, state votes
         if geography == 'statem':
-            queryset = Contest.objects.filter(statewide=True, name__regex=r'^\d\d\d?$').order_by('contest_number')
+            queryset = Contest.objects.filter(statewide=True, name__regex=r'^\d\d\d?$').order_by('contest_wrapper__hard_coded_order', 'contest_number')
             queryset_dict['options'] = queryset
 
         # Top two races, top three measures
@@ -225,6 +225,7 @@ def json_results(request, geo=None, **kwargs):
                              'contest_id': contest_queryset.id,
                              'explainer_text': contest_queryset.explainer_text,
                              'short_description': contest_queryset.short_contest_description,
+                             'web_front': contest_queryset.web_front,
                              contest_key: cand_yes_no_list
                              })
 
