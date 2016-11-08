@@ -11,8 +11,10 @@ from django.utils import simplejson
 from django.utils.dateformat import DateFormat
 # from django.views.decorators.cache import cache_page
 from django.views.generic.list_detail import object_list
-from ballot.models import Contest
+
 from ap_wfm.models import APStory
+from ballot.models import Contest
+from cuddlybuddly.storage.s3.exceptions import S3Error
 from fancy_cache import cache_page
 from sorl.thumbnail import get_thumbnail
 
@@ -294,11 +296,14 @@ def json_results(request, geo=None, **kwargs):
 
 
 def add_junk(response, request):
+    # pull from cache (if there is a cached response)
     junk = response.content
-    callback, data = junk.split("(")
-    callback = request.GET.get('callback')
-    newjunk = '%s(%s' % (callback, data)
-    response.content = newjunk
+    if "(" in junk:
+        callback, data = junk.split("(")
+        # overwrite cached callback value with new callback value
+        callback = request.GET.get('callback', default='')
+        newjunk = '%s(%s' % (callback, data)
+        response.content = newjunk
     return response
 
 @cache_page(5 * 60, only_get_keys=['floobert'], post_process_response_always=add_junk)
@@ -324,8 +329,11 @@ def json_wire_stories(request, **kwargs):
         dateline_city.strip()
         dateline_state.strip()
 
-        if story.image_set.all():
-            first_image_thumb = get_thumbnail(story.image_set.all()[0].image, '200x200', quality=85)
+        try:
+            if story.image_set.all():
+                first_image_thumb = get_thumbnail(story.image_set.all()[0].image, '200x200', quality=85)
+        except S3Error, err:
+            print err
 
         story_list.append({
                           'dateline_city': dateline_city,
