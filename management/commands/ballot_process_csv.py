@@ -34,13 +34,13 @@ class Command(BaseCommand):
                             int(result_row[13].split('/')[0]),\
                             int(result_row[11])
 
-                            self.stdout.write(''' Contest name:{0}
+                            self.stdout.write('''Contest name:{0}
 Contestant: {1}
 Contest number: {2}
 Candidate number: {3}
 Total precincts: {4}
 Precincts counted: {5}
-STATE votes! {6}\n\n'''.format(contest_name,\
+STATE votes! {6}\n'''.format(contest_name,\
                             contestant_name,\
                             contest_number,\
                             candidate_number,\
@@ -60,7 +60,7 @@ STATE votes! {6}\n\n'''.format(contest_name,\
                                 contestant_to_update.save()
 
                             self.stdout.write('''Updating {0} of {1}
-    ... {2} votes ...\n'''.format(contestant_name, contest_name, votes_other))
+    ... {2} votes ...\n\n'''.format(contestant_name, contest_name, votes_other))
                     else:
                         # It's from Lane County! Process every .csv row!
                         contest_name,\
@@ -83,7 +83,7 @@ Contest number: {2}
 Candidate number: {3}
 Total precincts: {4}
 Precincts counted: {5}
-LANE COUNTY votes! {6}\n\n'''.format(contest_name,\
+LANE COUNTY votes! {6}\n'''.format(contest_name,\
                         contestant_name,\
                         contest_number,\
                         candidate_number,\
@@ -91,19 +91,22 @@ LANE COUNTY votes! {6}\n\n'''.format(contest_name,\
                         precincts_counted,\
                         lane_votes))
 
-                        contestant_to_update = Cand_yes_no.objects.get(
-                            contest__contest_number=contest_number,
-                            candidate_number=candidate_number,
-                        )
-                        contestant_to_update.votes_local = lane_votes
-                        contestant_to_update.save()
-
-                        if precincts_counted:
-                            contestant_to_update.contest.precincts_counted = precincts_counted
+                        try:
+                            contestant_to_update = Cand_yes_no.objects.get(
+                                contest__contest_number=contest_number,
+                                candidate_number=candidate_number,
+                            )
+                            contestant_to_update.votes_local = lane_votes
                             contestant_to_update.save()
 
+                            if precincts_counted:
+                                contestant_to_update.contest.precincts_counted = precincts_counted
+                                contestant_to_update.save()
+                        except Cand_yes_no.DoesNotExist, err:
+                            lane_votes = 'A deleted, write-in only race. No'
+
                         self.stdout.write('''Updating {0} of {1}
-    ... {2} votes ...\n'''.format(contestant_name, contest_name, lane_votes))
+    ... {2} votes ...\n\n'''.format(contestant_name, contest_name, lane_votes))
 
         self.stdout.write('''Done parsing {0} that were in {1}
 '''.format([i['file'] for i in CSV_FILE_NAMES], CSV_DIRECTORY))
