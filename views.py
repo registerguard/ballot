@@ -18,6 +18,8 @@ from cuddlybuddly.storage.s3.exceptions import S3Error
 from fancy_cache import cache_page
 from sorl.thumbnail import get_thumbnail
 
+import datetime
+
 # Create your views here.
 
 def box_web(request):
@@ -222,6 +224,7 @@ def json_results(request, geo=None, **kwargs):
                                         'extra_text': cand_yes_no.extra_cand_meas_text
                                         })
             json_list.append({
+                             'updated': datetime.datetime.now().strftime('%c'),
                              'contest_wrapper': getattr(contest_queryset.contest_wrapper, "name", ""),
                              'contest_name': contest_queryset.name,
                              'contest_id': contest_queryset.id,
@@ -244,48 +247,6 @@ def json_results(request, geo=None, **kwargs):
 
 #     json_data = simplejson.dumps(json_list, indent=2)
     json_data = simplejson.dumps(wrap_json_list, indent=2)
-
-    # if geography == 'eugspr':
-    #     if cache.get('eugspr'):
-    #         json_data = cache.get('eugspr')
-    #     else:
-    #         cache.set('laneco', json_data, 60 * 60)
-
-    # if geography == 'laneco':
-    #     if cache.get('laneco'):
-    #         json_data = cache.get('laneco')
-    #     else:
-    #         cache.set('region', json_data, 60 * 60)
-
-    # if geography == 'region':
-    #     if cache.get('region'):
-    #         json_data = cache.get('region')
-    #     else:
-    #         cache.set('eugspr', json_data, 60 * 60)
-
-    # if geography == 'eugspr':
-    #     if cache.get('eugspr'):
-    #         json_data = cache.get('eugspr')
-    #     else:
-    #         cache.set('eugspr', json_data, 60 * 60)
-
-    # if geography == 'eugspr':
-    #     if cache.get('eugspr'):
-    #         json_data = cache.get('eugspr')
-    #     else:
-    #         cache.set('eugspr', json_data, 60 * 60)
-
-    # if geography == 'eugspr':
-    #     if cache.get('eugspr'):
-    #         json_data = cache.get('eugspr')
-    #     else:
-    #         cache.set('eugspr', json_data, 60 * 60)
-
-    # if geography == 'eugspr':
-    #     if cache.get('eugspr'):
-    #         json_data = cache.get('eugspr')
-    #     else:
-    #         cache.set('eugspr', json_data, 60 * 60)
 
     callback = request.GET.get('callback')
     if callback:
