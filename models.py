@@ -167,14 +167,14 @@ class Cand_yes_no(models.Model):
     def local_percent(self):
         try:
 #             return '%2.2f' % ((self.votes_local / self.contest.local_vote_total()) * 100)
-            return '{0:.2f}'.format( self.votes_local / self.contest.local_vote_total() * 100 ).rstrip('0')
+            return '{0:.2f}'.format( self.votes_local / self.contest.local_vote_total() * 100 )
         except (ZeroDivisionError, TypeError):
             return 0
     
     def other_percent(self):
         try:
 #             return '%2.2f' % ((self.votes_other / self.contest.other_vote_total()) * 100)
-            return '{0:.2f}'.format( self.votes_other / self.contest.other_vote_total() * 100 ).rstrip('0')
+            return '{0:.2f}'.format( self.votes_other / self.contest.other_vote_total() * 100 )
         except (ZeroDivisionError, TypeError):
             return 0
     
