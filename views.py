@@ -111,7 +111,10 @@ def main_print(request):
         {
             'object_list': queryset,
             'lane_county': lambda: Contest.objects.filter(region__name='Lane County', print_only=True, contest_wrapper__isnull=False).exclude(name__regex=r'^\d\d\d?').order_by('contest_wrapper', 'name'),
-            'region': lambda: Contest.objects.filter(region__name='Region').exclude(is_race=False).order_by('contest_wrapper', 'name'),
+            'measures': lambda: Contest.objects.filter(region__name='Measures').exclude(is_race=False).order_by('contest_wrapper', 'name'),
+            'benton_county': lambda: Contest.objects.filter(region__name='Benton County').exclude(is_race=False).order_by('contest_wrapper', 'name'),
+            'lincoln_county': lambda: Contest.objects.filter(region__name='Lincoln County').exclude(is_race=False).order_by('contest_wrapper', 'name'),
+            'linn_county': lambda: Contest.objects.filter(region__name='Linn County').exclude(is_race=False).order_by('contest_wrapper', 'name'),
         }
     )
     data = t.render(c)

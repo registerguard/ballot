@@ -7,10 +7,16 @@
 
 ![screenshot 2016-05-18 14 50 01](https://cloud.githubusercontent.com/assets/96007/15378391/e74786ba-1d17-11e6-8828-80c8a730f442.png)
 
-### Update: Nov. 1, 2016
+### Update: March 15, 2017
+
+#### Pre setup
+1. In Django admin, delete/export as fixture previous election
+1. When running stuff locally, setup an SSH tunnel to production database
+1. For Selenium, you may need to update chromedriver (https://sites.google.com/a/chromium.org/chromedriver/downloads) to match desktop Chrome (which has probably been auto-updated a few times since you last used chromedriver). And the XPath description may have changed/need updating.
 
 #### Once:
 1. `ballot_upload_csv` (local)
+1. (Looks like it's a good idea to update `LANE_CONTEST_IDS` in `ballot_settings.py` prior to running `ballot_setup` ... ) Quick & dirty hack; import .csv into Google Sheet, copy ID column into another tab and run `=UNIQUE(A:A)` on it from Column B. Copy & paste that column into BBEdit for grep cleanup (add indent & trailing comma). Copy updated `ballot_settings.py` to server.
 1. `ballot_setup` (remote; a one-time-per-election thing)  
 
 #### To update:

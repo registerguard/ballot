@@ -13,8 +13,20 @@
 {% if lane_county %}{% for race in lane_county %}{% ifchanged race.contest_wrapper.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>{{ race.contest_wrapper.name|upper }}
 {% endifchanged %}{% if race.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>{{ race.name }}
 {% endif %}{% for candidate in race.exclude_odd_bits %}<ParaStyle:QuickFacts\:News\_Elect\_text>{{ candidate.name }}	{{ candidate.votes_local|intcomma }}
-{% endfor %}{% endfor %}{% endif %}<ParaStyle:StandingHeads\:Style\_8\_ReverseBar\_Inline><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>REGION
-{% if region %}{% for race in region %}{% ifchanged race.contest_wrapper.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>{{ race.contest_wrapper.name|upper }}
+{% endfor %}{% endfor %}{% endif %}<ParaStyle:StandingHeads\:Style\_8\_ReverseBar\_Inline><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>MEASURES
+{% if measures %}{% for race in measures %}{% ifchanged race.contest_wrapper.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>{{ race.contest_wrapper.name|upper }}
+{% endifchanged %}{% if race.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>{{ race.name }}
+{% endif %}{% for candidate in race.exclude_odd_bits %}<ParaStyle:QuickFacts\:News\_Elect\_text>{{ candidate.name }}	{{ candidate.votes_local|intcomma }}
+{% endfor %}{% endfor %}{% endif %}<ParaStyle:StandingHeads\:Style\_8\_ReverseBar\_Inline><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>BENTON COUNTY
+{% if benton_county %}{% for race in benton_county %}{% ifchanged race.contest_wrapper.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>{{ race.contest_wrapper.name|upper }}
+{% endifchanged %}{% if race.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>{{ race.name }}
+{% endif %}{% for candidate in race.exclude_odd_bits %}<ParaStyle:QuickFacts\:News\_Elect\_text>{{ candidate.name }}	{{ candidate.votes_local|intcomma }}
+{% endfor %}{% endfor %}{% endif %}<ParaStyle:StandingHeads\:Style\_8\_ReverseBar\_Inline><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>LINCOLN COUNTY
+{% if lincoln_county %}{% for race in lincoln_county %}{% ifchanged race.contest_wrapper.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>{{ race.contest_wrapper.name|upper }}
+{% endifchanged %}{% if race.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>{{ race.name }}
+{% endif %}{% for candidate in race.exclude_odd_bits %}<ParaStyle:QuickFacts\:News\_Elect\_text>{{ candidate.name }}	{{ candidate.votes_local|intcomma }}
+{% endfor %}{% endfor %}{% endif %}<ParaStyle:StandingHeads\:Style\_8\_ReverseBar\_Inline><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>LINN COUNTY
+{% if linn_county %}{% for race in linn_county %}{% ifchanged race.contest_wrapper.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>{{ race.contest_wrapper.name|upper }}
 {% endifchanged %}{% if race.name %}<ParaStyle:QuickFacts\:News\_Elect\_blackCondheader><pTabRuler:131\,Right\,.\,0\,.\;216\,Right\,.\,0\,.\;253\,Right\,.\,0\,\;>{{ race.name }}
 {% endif %}{% for candidate in race.exclude_odd_bits %}<ParaStyle:QuickFacts\:News\_Elect\_text>{{ candidate.name }}	{{ candidate.votes_local|intcomma }}
 {% endfor %}{% endfor %}{% endif %}
