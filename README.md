@@ -16,13 +16,13 @@
 
 #### Once:
 1. `ballot_upload_csv` (local)
-1. (Looks like it's a good idea to update `LANE_CONTEST_IDS` in `ballot_settings.py` prior to running `ballot_setup` ... ) Quick & dirty hack; import .csv into Google Sheet, copy ID column into another tab and run `=UNIQUE(A:A)` on it from Column B. Copy & paste that column into BBEdit for grep cleanup (add indent & trailing comma). Copy updated `ballot_settings.py` to server.
+1. (Looks like it's a good idea to update `LANE_CONTEST_IDS` in `ballot_settings.py` prior to running `ballot_setup` ... ) Quick & dirty hack; import .csv into Google Sheet, copy ID column into another tab and run `=UNIQUE(A:A)` on it from Column B. Copy & paste that column into BBEdit for grep cleanup (add indent & trailing comma). _Only copy the_ `LANE_CONTEST_IDS` _variable_ to the `ballot_settings.py` file on the server. The `local` and `remote` versions have different CSV_DIRECTORY locations!
 1. `ballot_setup` (remote; a one-time-per-election thing)  
 
 #### To update:
-1. `ballot_upload_csv` (local; browser-fake JavaScript click to download .csv, upload file to server)
-2. `ballot_process_csv` (remote; insert .csv data in server db)
-3. `ballot_upload_json` (local; make JSON from URL requests, upload to AWS S3 bucket)
+1. `python manage.py ballot_upload_csv` (local; browser-fake JavaScript click to download .csv, upload file to server)
+2. `python manage.py ballot_process_csv` (remote; insert .csv data in server db)
+3. `python manage.py ballot_upload_json` (local; make JSON from URL requests, upload to AWS S3 bucket)
 
 --------
 #### Old/pre-Nov. 1, 2016, setup:
