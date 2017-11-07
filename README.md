@@ -9,7 +9,7 @@
 
 ### Update: March 15, 2017
 
-#### Pre/set up
+#### Pre-election set up
 1. Log in to server, use `$ python manage.py dumpdata ballot --format=json --indent=2 ... ` to export previous election as fixture (not there's a formal archive plan, it's just that straight-up deleting data gives me the willies ... ), then delete previous election data using web admin.
 1. When running stuff locally, setup an SSH tunnel to production database
 1. For Selenium, you may need to update chromedriver (https://sites.google.com/a/chromium.org/chromedriver/downloads) to match desktop Chrome (which has probably been auto-updated a few times since you last used chromedriver). And the XPath description may have changed/need updating.
