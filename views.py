@@ -13,6 +13,7 @@ from django.utils.dateformat import DateFormat
 from django.views.generic.list_detail import object_list
 
 from ap_wfm.models import APStory
+from ballot.management.commands.ballot_settings import ELECTION_DISPLAY_STRING
 from ballot.models import Contest
 from cuddlybuddly.storage.s3.exceptions import S3Error
 from fancy_cache import cache_page
@@ -83,7 +84,8 @@ def main_web(request):
             'douglas_county' : lambda: Contest.objects.filter(region__name='Douglas County').order_by('contest_wrapper__name', 'name'),
             'lincoln_county' : lambda: Contest.objects.filter(region__name='Lincoln County').order_by('contest_wrapper__name', 'name'),
 #             'linn_county' : lambda: Contest.objects.filter(region__name='Linn County').order_by('contest_number'),
-        'region': lambda: Contest.objects.filter(region__name='Region').exclude(is_race=False),
+            'region': lambda: Contest.objects.filter(region__name='Region').exclude(is_race=False),
+            'election_title': ELECTION_DISPLAY_STRING,
         }
     )
 

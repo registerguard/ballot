@@ -2,7 +2,7 @@
 {% load cache %}
 {% load humanize %}
 
-{% block head_title %}Unofficial Lane County results for the May 16, 2017, special election {% endblock %}
+{% block head_title %}Unofficial Lane County results for the {{ election_title }} {% endblock %}
 
 {% block css %}
 <style type="text/css">
@@ -25,7 +25,7 @@
 
 {% block home %}: Election 2016{% endblock %}
 
-{% block headline %}Unofficial Lane County results for the May 16, 2017, special election{% endblock %}
+{% block headline %}Unofficial Lane County results for the {{ election_title }}{% endblock %}
 
 {% block secondary_column %}{% endblock secondary_column %}
 
@@ -34,19 +34,8 @@
 	<div id="primary">
 	<!-- ##### BEGIN PRIMARY COLUMN ##### -->
 
-		{% comment %}
-		<div class="tabs">
-
-			<ul class="clear">
-				<li class="navFirst"><a href="#election-table">Full Lane County Election Results Table</a></li>
-				<li><a href="#ap-interactives">AP Election 2010 Interactives</a></li>
-			</ul> <!-- /.clear -->
-
-			<hr>
-		{% endcomment %}
-
 			<h3 class="label">Elections</h3>
-<h1 class="h3">Unofficial results for the Lane County May 16, 2017, special election</h1>
+<h1 class="h3">Unofficial results for the Lane County {{ election_title }}</h1>
 			<div class="rack">
 
 				<div id="election-table">

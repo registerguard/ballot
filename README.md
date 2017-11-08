@@ -16,21 +16,26 @@
 
 #### Once, after going through the above:
 1. `ballot_upload_csv` (local)
-1. Update `LANE_CONTEST_IDS` in `ballot_settings.py` prior to running `ballot_setup`  
+1. Update `ELECTION_DISPLAY_STRING` in `/management/commands/ballot_settings.py`
+1. Update `LANE_CONTEST_IDS` in ` .../ballot_settings.py` prior to running `ballot_setup`  
 **Quicker:** Visual Studio Code does vertical select, so open .csv created by `ballot_upload_csv` above, then `Option` + `Command` + `Down Arrow` ...  
 **Quick & dirty hack;** import .csv into Google Sheet, copy ID column into another tab and run `=UNIQUE(A:A)` on it from Column B. Copy & paste that column into BBEdit for grep cleanup (add indent & trailing comma).  
 **NOTE:** _Only copy the_ `LANE_CONTEST_IDS` _variable_ to the `ballot/management/commands/ballot_settings.py` file on the server. The `local` and `remote` versions of `ballot_settings.py` have different CSV_DIRECTORY locations!
 1. `ballot_setup` (run it remote with `LANE_CONTEST_IDS` edits that you made locally; a one-time-per-election thing)  
 
 #### To update:
-1. `python manage.py ballot_upload_csv` (local; browser-fake JavaScript click to download .csv, upload file to server)
+1. `python manage.py ballot_upload_csv` (local; Uses Selenium to browser-fake JavaScript click to download .csv, uploads .csv file to server)
 2. `python manage.py ballot_process_csv` (remote; insert .csv data in server db)
 3. `python manage.py ballot_upload_json` (local; make JSON from URL requests, upload to AWS S3 bucket)
 ---
 
-#### Other pieces  
+#### Other pieces:
 
-`ballot_upload_csv` _local_ Uses Selenium (too much of a pain to set up on AWS EC2 instance ) to grab data from Oregon SOS site, saves to local drive.
+`ballot_settings.py`: _local_ and _remote_: Different environmental settings for directories.  
+`ballot_setup`: _remote_: After updating with new `LANE_CONTEST_IDS`, run once. Deletes previous election data, sets up new election fields. If you're running it locally to test, it's looking for the `.csv` files to be in the same directory as the script file (so you may need to copy them over from your `Downloads` directory).  
+`ballot_test_data_in`:  
+`ballot_test_data_reset`:
+`ballot_clear_cache`: Main results page has a cached URL ('/ballot/results/full/') as well as a name template fragment cache ('main_results_table'). This clears both.
 
 ---
 #### Obsolete, old/pre-Nov. 1, 2016, setup:
