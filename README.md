@@ -9,21 +9,21 @@
 
 ### Update: Nov. 7, 2017
 
-#### Pre-election set up
+#### Pre-election set up notes
 1. Log in to server, export previous election as a fixture: `$ python manage.py dumpdata ballot --format=json --indent=2 > ballot/fixtures/YYYYMMDD.json`, (if you forget the date of the previous election, look it up on the Lane County Elections site) then, using the web admin delete all previous election data except for `Regions`. **Note:** Running `ballot_setup` (see below) also deletes `Cand_yes_no`, `Contest` and `Contest_wrapper` leaves `Region` intact.
 1. When running stuff locally, setup an SSH tunnel to production database
 1. For Selenium, you may need to update chromedriver (https://sites.google.com/a/chromium.org/chromedriver/downloads) to match desktop Chrome (which has probably been auto-updated a few times since you last used chromedriver). And the XPath description may have changed/need updating.
 
-#### Once, after going through the above:
-1. `ballot_upload_csv` (local)
-1. Update `ELECTION_DISPLAY_STRING` in `/management/commands/ballot_settings.py`
+#### One-time set up stuff:
+1. Run `ballot_upload_csv` (local). This tests out the Selenium grab of the .csv file from the Oregon Secretary of State web site. If successful, it gets you the Election IDs of all the contests, which you need to update `ballot_settings.py` below.
+1. Update the `ELECTION_DISPLAY_STRING` in `/management/commands/ballot_settings.py` with the Election Day date and the type of election (special, general, primary ... )
 1. Update `LANE_CONTEST_IDS` in ` .../ballot_settings.py` prior to running `ballot_setup`  
 **Quicker:** Visual Studio Code does vertical select, so open .csv created by `ballot_upload_csv` above, then `Option` + `Command` + `Down Arrow` ...  
 **Quick & dirty hack;** import .csv into Google Sheet, copy ID column into another tab and run `=UNIQUE(A:A)` on it from Column B. Copy & paste that column into BBEdit for grep cleanup (add indent & trailing comma).  
 **NOTE:** _Only copy the_ `LANE_CONTEST_IDS` _variable_ to the `ballot/management/commands/ballot_settings.py` file on the server. The `local` and `remote` versions of `ballot_settings.py` have different CSV_DIRECTORY locations!
 1. `ballot_setup` (run it remote with `LANE_CONTEST_IDS` edits that you made locally; a one-time-per-election thing)  
 
-#### To update:
+#### The Election Night steps to update results data:
 1. `python manage.py ballot_upload_csv` (local; Uses Selenium to browser-fake JavaScript click to download .csv, uploads .csv file to server)
 2. `python manage.py ballot_process_csv` (remote; insert .csv data in server db)
 3. `python manage.py ballot_upload_json` (local; make JSON from URL requests, upload to AWS S3 bucket)
