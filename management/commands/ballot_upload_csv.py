@@ -27,7 +27,7 @@ class Command(BaseCommand):
  server.
 
  REQUIRES:
- * selenium ("pip install selenium")
+ * selenium ("pip install selenium"; it's alson listed in requirements.txt)
  * chromedriver ("https://sites.google.com/a/chromium.org/chromedriver/downloads")
      on Mac OS X, /usr/local/bin seens a good location for it)
  * working scp connection to target server'''
