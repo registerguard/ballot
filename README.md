@@ -20,7 +20,7 @@
 1. Update `LANE_CONTEST_IDS` in ` .../ballot_settings.py` prior to running `ballot_setup`  
 **Quicker:** Visual Studio Code does vertical select, so open .csv created by `ballot_upload_csv` above, then `Option` + `Command` + `Down Arrow` ...  
 **Quick & dirty hack;** import .csv into Google Sheet, copy ID column into another tab and run `=UNIQUE(A:A)` on it from Column B. Copy & paste that column into BBEdit for grep cleanup (add indent & trailing comma).  
-**NOTE:** _Only copy the_ `LANE_CONTEST_IDS` _variable_ to the `ballot/management/commands/ballot_settings.py` file on the server. The `local` and `remote` versions of `ballot_settings.py` have different CSV_DIRECTORY locations!
+**NOTE:** _Only copy the_ `LANE_CONTEST_IDS` _variable_ to the `ballot/management/commands/ballot_settings.py` file on the server (as opposed to copying the entire `ballot_settings.py` file). The `local` and `remote` versions of `ballot_settings.py` have different CSV_DIRECTORY locations!
 1. `ballot_setup` (run it remote with `LANE_CONTEST_IDS` edits that you made locally; a one-time-per-election thing)  
 
 #### The Election Night steps to update results data:

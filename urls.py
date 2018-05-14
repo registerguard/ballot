@@ -56,6 +56,8 @@ urlpatterns = patterns('',
     (r'^results/main/$', 'ballot.views.main_print'),
     (r'^results/main/check/$', 'ballot.views.main_web'),
 
+    (r'^results/ghm/$', 'ballot.views.ghm'),
+
     (r'^json/$', json_results),
     (r'^json/(?P<geo>[a-z]{6})/$', json_results),
     (r'^json/ap_elex_stories/(?P<story_count>\d\d?)/$', json_wire_stories),

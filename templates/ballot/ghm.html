@@ -1,0 +1,18 @@
+{% load humanize %}
+{% for contest in object_list %}
+    {% ifchanged contest.region.name %}{{ contest.region.name }}{% endifchanged %}
+    {% ifchanged contest.contest_wrapper %}{{ contest.contest_wrapper }}{% endifchanged %}
+    {{ contest.name }}
+    {% for candidate in contest.cand_yes_no_set.all %}{% ifnotequal 'Write-in' candidate.name %}
+        {{ candidate.name }}	{{ candidate.votes_local|intcomma }}	{{ candidate.local_percent }}%
+    {% endifnotequal %}{% endfor %}
+{% endfor %}
+MEASURES
+{% for measure in measures_list %}
+    {% ifchanged measure.region.name %}{{ measure.region.name }}{% endifchanged %}
+    {% ifchanged measure.contest_wrapper %}{{ measure.contest_wrapper }}{% endifchanged %}
+    {{ measure.name }}
+    {% for side in measure.cand_yes_no_set.all %}
+        {{ side.name }}	{{ side.votes_local|intcomma }}	{{ side.local_percent }}%
+    {% endfor %}
+{% endfor %}

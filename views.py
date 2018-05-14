@@ -319,3 +319,13 @@ def json_wire_stories(request, **kwargs):
     else:
         response = HttpResponse(json_data, mimetype='application/javascript; charset=utf-8')
     return response
+
+def ghm(request):
+    return object_list(
+        request,
+        queryset = Contest.objects.filter(print_only=True, is_race=True).order_by('region', 'contest_number'),
+        template_name='ballot/ghm.html',
+        extra_context = {
+            'measures_list': lambda: Contest.objects.filter(print_only=True, is_race=False).order_by('region', '-name'),
+        }
+    )
