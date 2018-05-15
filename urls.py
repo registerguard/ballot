@@ -56,7 +56,8 @@ urlpatterns = patterns('',
     (r'^results/main/$', 'ballot.views.main_print'),
     (r'^results/main/check/$', 'ballot.views.main_web'),
 
-    (r'^results/ghm/$', 'ballot.views.ghm'),
+    (r'^results/ghm/$', 'ballot.views.ghm_raw'),
+    (r'^results/ghm/ic/$', 'ballot.views.ghm_incopy'),
 
     (r'^json/$', json_results),
     (r'^json/(?P<geo>[a-z]{6})/$', json_results),

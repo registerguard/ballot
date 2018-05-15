@@ -320,12 +320,31 @@ def json_wire_stories(request, **kwargs):
         response = HttpResponse(json_data, mimetype='application/javascript; charset=utf-8')
     return response
 
-def ghm(request):
+def ghm_raw(request):
     return object_list(
         request,
         queryset = Contest.objects.filter(print_only=True, is_race=True).order_by('region', 'contest_number'),
-        template_name='ballot/ghm.html',
+        template_name='ballot/ghm_raw.html',
         extra_context = {
             'measures_list': lambda: Contest.objects.filter(print_only=True, is_race=False).order_by('region', '-name'),
         }
     )
+
+def ghm_incopy(request):
+    queryset = queryset = Contest.objects.filter(print_only=True, is_race=True).order_by('region', 'contest_number')
+    template_name='ballot/ghm_incopy.txt'
+    mimetype = 'text/plain'
+    t = loader.get_template(template_name)
+    c = RequestContext(
+        request,
+        {
+            'object_list': queryset,
+            'measures_list': lambda: Contest.objects.filter(print_only=True, is_race=False).order_by('region', '-name'),
+        }
+    )
+    data = t.render(c)
+    data = data.encode('utf-16le')
+    resp = HttpResponse(data, mimetype=mimetype)
+    resp['Content-Disposition'] = 'attachment; filename=election-results.txt'
+    return resp
+    

@@ -1,0 +1,31 @@
+{% load humanize %}<UNICODE-WIN>
+
+<vsn:8><fset:InDesign-Roman><ctable:=<Black:COLOR:CMYK:Process:0,0,0,1>>
+
+<dcs:Fraction\_sans bold=<Nextstyle:Fraction\_sans bold><ct:CompBold><chs:1.120000><capk:Optical><ctk:-40><cbs:0.000000><ck:1e\+08><cvs:1.120000><cf:PoynterAgateOne><cotff:1>>
+
+<dcs:Fraction\_sans=<Nextstyle:Fraction\_sans><ct:Comp><chs:1.120000><capk:Optical><ctk:-40><cbs:0.000000><ck:1e\+08><cvs:1.120000><cf:PoynterAgateOne><cotff:1>>
+
+<dps:Subhead=<Nextstyle:Subhead><ct:Bold><cs:10.000000><cl:11.000000><ph:0><pmcbh:3><pmcah:3><pswh:7><psb:11.000000><psa:1.000000><cf:SalvoSans><pga:BaseLine><pideosp:1>>
+
+<dps:Box type=<Nextstyle:Box type><ct:Cond><cs:8.500000><cbs:-0.000000><phll:1><cl:11.000000><pmcbh:3><pmcah:3><phc:0><pswh:7><cf:PoynterAgateZero><pmaws:1.050000><pmiws:0.850000><pmaxl:0.020000><pminl:-0.030000><pmaxgs:1.010000><pmings:0.980000><cct:100.000000><phlw:0><pswa:Left><cotff:1><pdcdetail:><phcf:0><pruninGrep:Fraction\_sans\,\(\?\!\\\<50\/50\\\>\)\(\?\!\\\<24\/7\\\>\)\(\?\!\\\<9\/11\\\>\)\(\?\<\!\\d\)\(\?\<\!\/\)\\d\+\/\(\\d\{1\,3\}\)\(\?\!\/\)\(\?\!\\d\)\;><pga:BaseLine>>
+
+<dps:Box type bold=<BasedOn:Box type><Nextstyle:Box type bold><ct:CondBold><pruninGrep:Fraction\_sans bold\,\(\?\!\\\<50\/50\\\>\)\(\?\!\\\<24\/7\\\>\)\(\?\!\\\<9\/11\\\>\)\(\?\<\!\\d\)\(\?\<\!\/\)\\d\+\/\(\\d\{1\,3\}\)\(\?\!\/\)\(\?\!\\d\)\;>>
+
+{% for contest in object_list %}{% ifchanged contest.region.name %}<pstyle:Subhead>{{ contest.region.name }}{% endifchanged %}
+    {% ifchanged contest.contest_wrapper %}{{ contest.contest_wrapper }}{% endifchanged %}
+    {{ contest.name }}
+    {% for candidate in contest.cand_yes_no_set.all %}{% ifnotequal 'Write-in' candidate.name %}
+        {{ candidate.name }}	{{ candidate.votes_local|intcomma }}	{{ candidate.local_percent }}%
+    {% endifnotequal %}{% endfor %}
+{% endfor %}
+<ptr:><pstyle:Subhead>Measures
+
+{% for measure in measures_list %}
+    {% ifchanged measure.region.name %}{{ measure.region.name }}{% endifchanged %}
+    {% ifchanged measure.contest_wrapper %}{{ measure.contest_wrapper }}{% endifchanged %}
+    {{ measure.name }}
+    {% for side in measure.cand_yes_no_set.all %}
+        {{ side.name }}	{{ side.votes_local|intcomma }}	{{ side.local_percent }}%
+    {% endfor %}
+{% endfor %}
