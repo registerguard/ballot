@@ -176,7 +176,7 @@ def json_results(request, geo=None, **kwargs):
         # Lane County measures
         if geography == 'laneme':
             # I've built two ways, apparently, to filter for Measures, the 'region__name' and 'is_race' column. So ...  
-            queryset = Contest.objects.filter(is_race=False, name__startswith='20-').order_by('contest_wrapper__hard_coded_order', 'contest_number')
+            queryset = Contest.objects.filter(is_race=False, contest_wrapper__name__startswith='20-').order_by('contest_wrapper__hard_coded_order', 'contest_number')
             queryset_dict['options'] = queryset
 
         # State races; Lane County votes, state votes

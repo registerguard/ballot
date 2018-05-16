@@ -24,9 +24,9 @@
 1. `ballot_setup` (run it remote with `LANE_CONTEST_IDS` edits that you made locally; a one-time-per-election thing)  
 
 #### The Election Night steps to update results data:
-1. `python manage.py ballot_upload_csv` (local; Uses Selenium to browser-fake JavaScript click to download .csv, uploads .csv file to server)
-2. `python manage.py ballot_process_csv` (remote; insert .csv data in server db)
-3. `python manage.py ballot_upload_json` (local; make JSON from URL requests, upload to AWS S3 bucket)
+1. `python manage.py ballot_upload_csv` (**local**; Uses Selenium to browser-fake JavaScript click to download .csv, uploads .csv file to server)
+2. `python manage.py ballot_process_csv` (**remote**; insert .csv data in server db)
+3. `python manage.py ballot_upload_json` (**local**; make JSON from URL requests, upload to AWS S3 bucket)
 ---
 
 #### Other pieces:
