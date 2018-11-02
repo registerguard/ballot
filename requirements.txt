@@ -10,9 +10,8 @@ docutils==0.12
 futures==3.0.5
 jmespath==0.9.0
 psycopg2==2.6.2
-pycrypto==2.6.1
 python-dateutil==2.5.3
-requests==2.11.1
+requests==2.20.0
 s3transfer==0.1.9
 selenium==3.0.1
 six==1.10.0
