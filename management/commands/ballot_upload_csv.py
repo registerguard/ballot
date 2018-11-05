@@ -27,7 +27,7 @@ class Command(BaseCommand):
  server.
 
  REQUIRES:
- * selenium ("pip install selenium"; it's alson listed in requirements.txt)
+ * selenium ("pip install selenium"; it's also listed in requirements.txt)
  * chromedriver ("https://sites.google.com/a/chromium.org/chromedriver/downloads")
      on Mac OS X, /usr/local/bin seens a good location for it)
  * working scp connection to target server'''
@@ -44,8 +44,9 @@ class Command(BaseCommand):
             if csv_file_name['file'] in os.listdir(CSV_DIRECTORY):
                 os.remove('{0}{1}'.format(CSV_DIRECTORY, csv_file_name['file']))
 
-            browser.click_sos_download(csv_file_name['xpath'])
-            time.sleep(3)
+            for xpath_click in csv_file_name['xpath']:
+                browser.click_sos_download(xpath_click)
+                time.sleep(3)
 
             os.system('scp {0}{1} {2}'.format(CSV_DIRECTORY, csv_file_name['file'], SCP_STRING))
 
