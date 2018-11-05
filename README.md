@@ -12,7 +12,8 @@
 #### Pre-election set up notes
 1. Log in to server, export previous election as a fixture: `$ python manage.py dumpdata ballot --format=json --indent=2 > ballot/fixtures/YYYYMMDD.json`, (if you forget the date of the previous election, look it up on the Lane County Elections site) then, using the web admin delete all previous election data except for `Regions`. **Note:** Running `ballot_setup` (see below) also deletes `Cand_yes_no`, `Contest` and `Contest_wrapper` leaves `Region` intact.
 1. When running stuff locally, setup an SSH tunnel to production database
-1. For Selenium, you may need to update chromedriver (https://sites.google.com/a/chromium.org/chromedriver/downloads) to match desktop Chrome (which has probably been auto-updated a few times since you last used chromedriver). And the XPath description may have changed/need updating.
+1. For Selenium, you may need to update chromedriver (https://sites.google.com/a/chromium.org/chromedriver/downloads) to match desktop Chrome (which has probably been auto-updated a few times since you last used chromedriver). On Mac OS X, a location to move the `chromedriver` to that seems to work is `/usr/local/bin`.
+1. Also, the XPath description may have changed on the Oregon SOS site and it may need updating in your `ballot/management/commands/ballot_settings.py` file so the scraper script can find it.
 
 #### One-time set up stuff:
 1. Run `ballot_upload_csv` (local). This tests out the Selenium grab of the .csv file from the Oregon Secretary of State web site. If successful, it gets you the Election IDs of all the contests, which you need to update `ballot_settings.py` below.
