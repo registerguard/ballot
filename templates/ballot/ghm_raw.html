@@ -4,7 +4,7 @@
     {% ifchanged contest.contest_wrapper %}<b>{{ contest.contest_wrapper }}</b>{% endifchanged %}{% if contest.name %}
     <b>{{ contest.name }}</b>{% endif %}
     {% for candidate in contest.cand_yes_no_set.all %}{% ifnotequal 'Write-in' candidate.name %}
-        {{ candidate.name }}	{{ candidate.votes_local|intcomma }}	{{ candidate.local_percent }}%
+        {{ candidate.name }} ({{ candidate.affiliation }})	{{ candidate.votes_local|intcomma }}	{{ candidate.local_percent }}%
     {% endifnotequal %}{% endfor %}
 {% endfor %}
 <b>MEASURES</b>
