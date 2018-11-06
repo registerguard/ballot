@@ -38,9 +38,9 @@
 
 `ballot_settings.py`: _local_ and _remote_: Different environmental settings for directories.  
 `ballot_setup`: _remote_: After updating with new `LANE_CONTEST_IDS`, run once. Deletes previous election data, sets up new election fields. If you're running it locally to test, it's looking for the `.csv` files to be in the same directory as the script file (so you may need to copy them over from your `Downloads` directory).  
-`ballot_test_data_in`:  
-`ballot_test_data_reset`:
-`ballot_clear_cache`: Main results page has a cached URL ('/ballot/results/full/') as well as a name template fragment cache ('main_results_table'). This clears both.
+`ballot_test_data_in`: both  
+`ballot_test_data_reset`: both  
+`ballot_clear_cache`: Main web results page has a cached URL ('/ballot/results/full/') as well as a name template fragment cache ('main_results_table'). This clears both.
 
 ---
 #### Obsolete, old/pre-Nov. 1, 2016, setup:
