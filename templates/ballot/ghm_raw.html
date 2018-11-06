@@ -1,18 +1,18 @@
 {% load humanize %}
 {% for contest in object_list %}
-    {% ifchanged contest.region.name %}<b>{{ contest.region.name }}</b>{% endifchanged %}
-    {% ifchanged contest.contest_wrapper %}<b>{{ contest.contest_wrapper }}</b>{% endifchanged %}{% if contest.name %}
-    <b>{{ contest.name }}</b>{% endif %}
+    {% ifchanged contest.region.name %}<b>{{ contest.region.name }}</b><br>{% endifchanged %}
+    {% ifchanged contest.contest_wrapper %}<b>{{ contest.contest_wrapper }}</b><br>{% endifchanged %}{% if contest.name %}
+    <b>{{ contest.name }}</b><br>{% endif %}
     {% for candidate in contest.cand_yes_no_set.all %}{% ifnotequal 'Write-in' candidate.name %}
-        {{ candidate.name }} ({{ candidate.affiliation }})	{{ candidate.votes_local|intcomma }}	{{ candidate.local_percent }}%
+        {{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}){% endif %};{{ candidate.votes_local|intcomma }};{{ candidate.local_percent }}%<br>
     {% endifnotequal %}{% endfor %}
 {% endfor %}
-<b>MEASURES</b>
+<b>MEASURES</b><br>
 {% for measure in measures_list %}
-    {% ifchanged measure.region.name %}<b>{{ measure.region.name }}</b>{% endifchanged %}
-    {% ifchanged measure.contest_wrapper %}<b>{{ measure.contest_wrapper }}</b>{% endifchanged %}
-    <b>{{ measure.name }}</b>
+    {% ifchanged measure.region.name %}<b>{{ measure.region.name }}</b><br>{% endifchanged %}
+    {% ifchanged measure.contest_wrapper %}<b>{{ measure.contest_wrapper }}</b><br>{% endifchanged %}
+    <b>{{ measure.name }}</b><br>
     {% for side in measure.cand_yes_no_set.all %}
-        {{ side.name }}	{{ side.votes_local|intcomma }}	{{ side.local_percent }}%
+        {{ side.name }}	{{ side.votes_local|intcomma }}	{{ side.local_percent }}%<br>
     {% endfor %}
 {% endfor %}
