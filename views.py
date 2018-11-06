@@ -324,7 +324,7 @@ def json_wire_stories(request, **kwargs):
 def ghm_raw(request):
     return object_list(
         request,
-        queryset = Contest.objects.filter(print_only=True, is_race=True).order_by('region', 'contest_number'),
+        queryset = Contest.objects.filter(print_only=True, is_race=True).order_by('region', 'contest_wrapper__hard_coded_order', 'contest_number'),
         template_name='ballot/ghm_raw.html',
         extra_context = {
             'measures_list': lambda: Contest.objects.filter(print_only=True, is_race=False).order_by('region', '-name'),

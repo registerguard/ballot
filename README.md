@@ -7,10 +7,10 @@
 
 ![screenshot 2016-05-18 14 50 01](https://cloud.githubusercontent.com/assets/96007/15378391/e74786ba-1d17-11e6-8828-80c8a730f442.png)
 
-### Update: Nov. 7, 2017
+### Update: Nov. 5, 2018
 
 #### Pre-election set up notes
-1. Log in to server, export previous election as a fixture: `$ python manage.py dumpdata ballot --format=json --indent=2 > ballot/fixtures/YYYYMMDD.json`, (if you forget the date of the previous election, look it up on the Lane County Elections site) then, using the web admin delete all previous election data except for `Regions`. **Note:** Running `ballot_setup` (see below) also deletes `Cand_yes_no`, `Contest` and `Contest_wrapper` leaves `Region` intact.
+1. Log in to server, export previous election as a fixture: `$ python manage.py dumpdata ballot --format=json --indent=2 > ballot/fixtures/YYYYMMDD.json`, (The date of the previous election's likely still kicking around in your `ELECTION_DISPLAY_STRING` variable in your `ballot/management/commands/ballot_settings.py` file! But if not, you can also look it up on the Lane County Elections site.) then, using the web admin delete all previous election data except for `Regions`. **Note:** Running `ballot_setup` (see below) also deletes `Cand_yes_no`, `Contest` and `Contest_wrapper` leaves `Region` intact.
 1. When running stuff locally, setup an SSH tunnel to production database
 1. For Selenium, you may need to update chromedriver (https://sites.google.com/a/chromium.org/chromedriver/downloads) to match desktop Chrome (which has probably been auto-updated a few times since you last used chromedriver). On Mac OS X, a location to move the `chromedriver` to that seems to work is `/usr/local/bin`.
 1. Also, the XPath description may have changed on the Oregon SOS site and it may need updating in your `ballot/management/commands/ballot_settings.py` file so the scraper script can find it.
@@ -21,8 +21,12 @@
 1. Update `LANE_CONTEST_IDS` in ` .../ballot_settings.py` prior to running `ballot_setup`  
 **Quicker:** Visual Studio Code does vertical select, so open .csv created by `ballot_upload_csv` above, then `Option` + `Command` + `Down Arrow` ...  
 **Quick & dirty hack;** import .csv into Google Sheet, copy ID column into another tab and run `=UNIQUE(A:A)` on it from Column B. Copy & paste that column into BBEdit for grep cleanup (add indent & trailing comma).  
-**NOTE:** _Only copy the_ `LANE_CONTEST_IDS` _variable_ to the `ballot/management/commands/ballot_settings.py` file on the server (as opposed to copying the entire `ballot_settings.py` file). The `local` and `remote` versions of `ballot_settings.py` have different CSV_DIRECTORY locations!
+**NOTE:** _Only copy the_ `LANE_CONTEST_IDS` _variable_ to the `ballot/management/commands/ballot_settings.py` file on the server (as opposed to copying the entire `ballot_settings.py` file). The `local` and `remote` versions of `ballot_settings.py` have different CSV_DIRECTORY locations! Also, remember to update remote `ELECTION_DISPLAY_STRING` and anything else you had to update in the local version. Like any tweaks/updates made to `CSV_FILE_NAMES`.
 1. `ballot_setup` (run it remote with `LANE_CONTEST_IDS` edits that you made locally; a one-time-per-election thing)  
+
+#### One-time clean up of Measures, Races:
+1. Once you've done the above, all the Measures and Races are imported into the Django db and by default are assigned to Lane County. You'll need use the Django admin to properly group the Federal, State, City etc. measures & races. 
+1. **Pro Tip:** Depending on the view that's powering your request, the quickest way to separate Measures from Races is the `is_race` attribute, which is easily edited in a bulk fashion from the admin `Contest` index view.
 
 #### The Election Night steps to update results data:
 1. `python manage.py ballot_upload_csv` (**local**; Uses Selenium to browser-fake JavaScript click to download .csv, uploads .csv file to server)
