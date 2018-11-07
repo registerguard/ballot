@@ -1,0 +1,41 @@
+<!DOCTYPE html>{% load humanize %}
+<html>
+	<head>
+		<!-- robbyd -->
+		<meta name="viewport" content="width=device-width", initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Oswald:300,400,700|Roboto+Condensed:400,400i,700,700i|Crimson+Text:400,400i,700,700i|Rubik:400,500,700,900">
+
+		<style>
+			body {
+				font-family: "Oswald","Helvetica Neue","Helvetica","Roboto","Arial",sans-serif;
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+
+	</head>
+
+	<body>
+	<h2 class="headline">Lane County unofficial results</h2>
+{% if object_list %}
+	{% for contest in object_list %}
+		{% if contest.web_front %}
+			<h3 class="headline">{% if contest.contest_wrapper.name %}{{ contest.contest_wrapper.name }}{% endif %}{% if contest.contest_wrapper.name and contest.name %} -{% endif %} {{ contest.name }}{% if contest.explainer_text %} {{ contest.explainer_text }}{% endif %}</h3>
+			<p>
+			{% for candidate in contest.cand_yes_no_set.all %}
+				{% ifnotequal candidate.name "Write-in" %}
+				{% ifnotequal candidate.name "over votes" %}
+				{% ifnotequal candidate.name "under votes" %}
+					{{ candidate.name }} {{ candidate.local_percent}}%<br>
+				{% endifnotequal %}
+				{% endifnotequal %}
+				{% endifnotequal %}
+			{% endfor %}
+			</p>
+		{% endif %}
+	{% endfor %}
+	<p><a href="http://projects.registerguard.com/ballot/results/full/" title="Complete local results">Other Lane County results &raquo;</a></p>
+{% endif %}
+	</body>
+</html>
