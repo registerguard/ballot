@@ -18,9 +18,10 @@ part of the Contest Wrapper item, which you're probably going to need in the
 case of a primary as the County groups results by party and not race, as we do.
 '''
 info_dict = {
-    'queryset': Contest.objects.filter(print_only=True).order_by('region', 'contest_wrapper__hard_coded_order', 'contest_wrapper', 'name',),
-#     'queryset': Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
-#     'queryset': Contest.objects.order_by('region', 'contest_number', 'contest_wrapper',),
+    'queryset': Contest.objects.order_by('region', 'contest_wrapper__hard_coded_order', 'contest_wrapper', 'name',),
+    # 'queryset': Contest.objects.filter(print_only=True).order_by('region', 'contest_wrapper__hard_coded_order', 'contest_wrapper', 'name',),
+    # 'queryset': Contest.objects.order_by('region', 'contest_number', 'contest_wrapper', 'name',),
+    # 'queryset': Contest.objects.order_by('region', 'contest_number', 'contest_wrapper',),
     'template_name': 'ballot/web_full_list.html',
     'extra_context': {
         'object': {'author': 'John Heasly'},
