@@ -66,14 +66,14 @@ class Command(BaseCommand):
                 data.append((
                 int(line[0]),           # 'ContestID'
                 line[1].strip(),        # 'ContestName'
-                line[2],                # 'PartyCode'
-                int(line[7]),           # 'CandidateID'
-                line[8].strip(),        # 'CandidateName'
-                line[9],                # 'CurrentDateTime'
-                int(line[10]),          # 'VoteFor'
-                int(line[11]),          # 'CandidateVotes'
-                float(line[12]),        # 'CandidatePercentage'
-                line[13],               # 'PrecinctsReporting'
+                line[3],                # 'PartyCode'
+                int(line[8]),           # 'CandidateID'
+                line[9].strip(),        # 'CandidateName'
+                line[10],               # 'CurrentDateTime'
+                int(line[11]),          # 'VoteFor'
+                int(line[12]),          # 'CandidateVotes'
+                float(line[13]),        # 'CandidatePercentage'
+                line[14],               # 'PrecinctsReporting'
                 ))
 
             out_list = []
