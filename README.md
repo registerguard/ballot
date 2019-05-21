@@ -17,10 +17,10 @@
 
 #### One-time set up stuff:
 1. Run `ballot_upload_csv` (local). This tests out the Selenium grab of the .csv file from the Oregon Secretary of State web site. If successful, it gets you the Election IDs of all the contests, which you need to update `ballot_settings.py` below.
-1. Update the `ELECTION_DISPLAY_STRING` in `/management/commands/ballot_settings.py` with the Election Day date and the type of election (special, general, primary ... )
+1. Update the `ELECTION_DISPLAY_STRING` in `/management/commands/ballot_settings.py` with the Election Day date and the type of election (special, general, primary ... ). **Note:** As `ballot_settings.py` isn't in version control, you will have to update this manually both on your local machine and the remote server.
 1. Update `LANE_CONTEST_IDS` in ` .../ballot_settings.py` prior to running `ballot_setup`  
 **Quicker:** Visual Studio Code does vertical select, so open .csv created by `ballot_upload_csv` above, then `Option` + `Command` + `Down Arrow` ...  
-**Quick & dirty hack;** import .csv into Google Sheet, copy ID column into another tab and run `=UNIQUE(A:A)` on it from Column B. Copy & paste that column into BBEdit for grep cleanup (add indent & trailing comma).  
+**Quick & dirty hack;** import .csv into Google Sheet, copy ID column into another Sheet and run `=UNIQUE(A:A)` on it from Column B. Copy & paste that column into BBEdit for grep cleanup (add indent & trailing comma).  
 **NOTE:** _Only copy the_ `LANE_CONTEST_IDS` _variable_ to the `ballot/management/commands/ballot_settings.py` file on the server (as opposed to copying the entire `ballot_settings.py` file). The `local` and `remote` versions of `ballot_settings.py` have different CSV_DIRECTORY locations! Also, remember to update remote `ELECTION_DISPLAY_STRING` and anything else you had to update in the local version. Like any tweaks/updates made to `CSV_FILE_NAMES`.
 1. `ballot_setup` (run it remote with `LANE_CONTEST_IDS` edits that you made locally; a one-time-per-election thing)  
 
