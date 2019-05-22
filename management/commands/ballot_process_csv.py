@@ -70,12 +70,12 @@ STATE votes! {6}\n'''.format(contest_name,\
                         total_precincts,\
                         precincts_counted,\
                         lane_votes = result_row[1],\
-                        result_row[8],\
+                        result_row[9],\
                         int(result_row[0]),\
-                        int(result_row[7]),\
-                        int(result_row[13].split('/')[1]),\
-                        int(result_row[13].split('/')[0]),\
-                        int(result_row[11])
+                        int(result_row[8]),\
+                        int(result_row[14].split('/')[1]),\
+                        int(result_row[14].split('/')[0]),\
+                        int(result_row[12])
 
                         self.stdout.write('''Contest name: {0}
 Contestant: {1}
