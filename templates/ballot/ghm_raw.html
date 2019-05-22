@@ -12,7 +12,7 @@
     {% ifchanged measure.region.name %}<b>{{ measure.region.name }}</b><br>{% endifchanged %}
     {# {% ifchanged measure.contest_wrapper %}<b>{{ measure.contest_wrapper|upper }}</b><br>{% endifchanged %} #} {% if measure.name %}
     <b>{{ measure.name }}</b><br>{% endif %}
-    <b>{{ measure.explainer_text }}</b><br>
+    {{ measure.explainer_text }}<br>
     {% for side in measure.cand_yes_no_set.all %}
         {{ side.name }};{{ side.votes_local|intcomma }};{{ side.local_percent }}%<br>
     {% endfor %}
