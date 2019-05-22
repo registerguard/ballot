@@ -1,19 +1,18 @@
 {% load humanize %}
 {% for contest in object_list %}
-    {% ifchanged contest.region.name %}<b>{{ contest.region.name }}</b><br>{% endifchanged %}
-    {% ifchanged contest.contest_wrapper %}<b>{{ contest.contest_wrapper|upper }}</b><br>{% endifchanged %}{% if contest.name %}
-    <b>{{ contest.name }}</b><br>{% endif %}
+    {% ifchanged contest.region.name %}<p><b>{{ contest.region.name }}</b></p>{% endifchanged %}
+    {% ifchanged contest.contest_wrapper %}<p><b>{{ contest.contest_wrapper|upper }}</b></p>{% endifchanged %}{% if contest.name %}
+    <p><b>{{ contest.name }}</b></p>{% endif %}
     {% for candidate in contest.cand_yes_no_set.all %}{% ifnotequal 'Write-in' candidate.name %}
-        {{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}){% endif %};{{ candidate.votes_local|intcomma }};{{ candidate.local_percent }}%<br>
+        <p>{{ candidate.name }}{% if candidate.affiliation %} ({{ candidate.affiliation }}){% endif %};{{ candidate.votes_local|intcomma }};{{ candidate.local_percent }}%</p>
     {% endifnotequal %}{% endfor %}
 {% endfor %}
-<b>MEASURES</b><br>
 {% for measure in measures_list %}
-    {% ifchanged measure.region.name %}<b>{{ measure.region.name }}</b><br>{% endifchanged %}
-    {# {% ifchanged measure.contest_wrapper %}<b>{{ measure.contest_wrapper|upper }}</b><br>{% endifchanged %} #} {% if measure.name %}
-    <b>{{ measure.name }}</b><br>{% endif %}
-    {{ measure.explainer_text }}<br>
+    {% ifchanged measure.region.name %}<p><b>{{ measure.region.name }}</b></p>{% endifchanged %}
+    {# {% ifchanged measure.contest_wrapper %}<p><b>{{ measure.contest_wrapper|upper }}</b></p>{% endifchanged %} #} {% if measure.name %}
+    <p><b>{{ measure.name }}</b></p>{% endif %}
+    <p>{{ measure.explainer_text }}</p>
     {% for side in measure.cand_yes_no_set.all %}
-        {{ side.name }};{{ side.votes_local|intcomma }};{{ side.local_percent }}%<br>
+        <p>{{ side.name }};{{ side.votes_local|intcomma }};{{ side.local_percent }}%</p>
     {% endfor %}
 {% endfor %}
