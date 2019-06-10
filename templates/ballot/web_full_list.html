@@ -2,7 +2,7 @@
 {% load cache %}
 {% load humanize %}
 
-{% block head_title %}Unofficial Lane County results for the {{ election_title }} {% endblock %}
+{% block head_title %}{% if final %}Official final{% else %}Unofficial{% endif %} Lane County results for the {{ election_title }} {% endblock %}
 
 {% block css %}
 <style type="text/css">
@@ -23,9 +23,9 @@
 </div> <!-- /.c49p -->
 {% endblock %}
 
-{% block home %}: Election 2016{% endblock %}
+{% block home %}: Election 2019{% endblock %}
 
-{% block headline %}Unofficial Lane County results for the {{ election_title }}{% endblock %}
+{% block headline %}{% if final %}Official final{% else %}Unofficial{% endif %} Lane County results for the {{ election_title }}{% endblock %}
 
 {% block secondary_column %}{% endblock secondary_column %}
 
@@ -35,7 +35,7 @@
 	<!-- ##### BEGIN PRIMARY COLUMN ##### -->
 
 			{# <h3 class="label">Elections</h3> #}
-			<h2 class="headline">Unofficial results for the Lane County {{ election_title }}</h2>
+			<h2 class="headline">{%if final %}Official final{% else %}Unofficial{% endif %} results for the Lane County {{ election_title }}</h2>
 
 			<div id="election-table">
 

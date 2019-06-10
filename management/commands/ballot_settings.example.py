@@ -2,6 +2,7 @@
 SITE_ADDR = 'http://results.oregonvotes.gov/ResultsExport.aspx'
 
 # For use in /ballot/results/full/
+FINAL = False # If it's final results, set to True
 ELECTION_DISPLAY_STRING = u'Nov. 7, 2017, special election'
 
 # Directory on local machine that Selenium webdriver downloads files

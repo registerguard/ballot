@@ -1,7 +1,8 @@
 from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list
 from django.views.decorators.cache import cache_page
-from ballot.management.commands.ballot_settings import ELECTION_DISPLAY_STRING
+from ballot.management.commands.ballot_settings import \
+    ELECTION_DISPLAY_STRING, FINAL
 from ballot.models import Contest
 from ballot.views import json_results, json_wire_stories
 
@@ -25,6 +26,7 @@ info_dict = {
     'template_name': 'ballot/web_full_list.html',
     'extra_context': {
         'object': {'author': 'John Heasly'},
+        'final': FINAL,
         'election_title': ELECTION_DISPLAY_STRING,
         },
 }
