@@ -7,7 +7,7 @@
 
 ![screenshot 2016-05-18 14 50 01](https://cloud.githubusercontent.com/assets/96007/15378391/e74786ba-1d17-11e6-8828-80c8a730f442.png)
 
-### Update: Nov. 5, 2018
+### Update: May 19, 2020
 
 #### Pre-election set up notes
 1. Log in to server, export previous election as a fixture: `$ python manage.py dumpdata ballot --format=json --indent=2 > ballot/fixtures/YYYYMMDD.json`, (**ProTip:** The date of the previous election's likely still kicking around in your `ELECTION_DISPLAY_STRING` variable in your `ballot/management/commands/ballot_settings.py` file! But if not, you can also look it up on the Lane County Elections site.) then, using the web admin delete all previous election data except for `Regions`. **Note:** Running `ballot_setup` (see below) also deletes `Cand_yes_no`, `Contest` and `Contest_wrapper` leaves `Region` intact.
@@ -27,8 +27,8 @@
 1. `ballot_setup` (run it remote with `LANE_CONTEST_IDS` edits that you made locally; a one-time-per-election thing)  
 
 #### One-time clean up of Measures, Races:
-1. Once you've done the above, all the Measures and Races are imported into the Django db and by default are assigned to Lane County. You'll need use the Django admin to properly group the Federal, State, City etc. measures & races. 
-1. **Pro Tip:** Depending on the view that's powering your request, the quickest way to separate Measures from Races is the `is_race` attribute, which is easily edited in a bulk fashion from the admin `Contest` index view.
+1. Once you've done the above, all the Measures and Races are imported into the Django db and by default are assigned to Lane County. You'll need use the Django admin `Ballot > Contests` to properly group the Federal, State, City etc. measures & races. 
+> **Pro Tip:** Depending on the view that's powering your request, the quickest way to separate Measures from Races is the `is_race` attribute, which is easily edited in a bulk fashion from the admin `Contest` index view.
 
 #### The Election Night steps to update results data:
 1. `python manage.py ballot_upload_csv` (**local**; Uses Selenium to browser-fake JavaScript click to download .csv, uploads .csv file to server)
