@@ -23,7 +23,8 @@
 1. Update `LANE_CONTEST_IDS` in ` .../ballot_settings.py` prior to running `ballot_setup`  
 **Quicker:** Visual Studio Code does vertical select, so open .csv created by `ballot_upload_csv` above, then `Option` + `Command` + `Down Arrow` ... but this won't get you the uniques, so you'll still need to upload to Googlge Sheet to remove dupe IDs. 
 **Quick & dirty hack;** import .csv into Google Sheet, copy ID column into another Sheet and run `=UNIQUE(A:A)` on it from Column B. Copy & paste that column into BBEdit for grep cleanup (add indent & trailing comma).  
-> **NOTE:** _Only copy the_ `LANE_CONTEST_IDS` _variable_ to the `ballot/management/commands/ballot_settings.py` file on the server (as opposed to copying the entire `ballot_settings.py` file). The `local` and `remote` versions of `ballot_settings.py` have different CSV_DIRECTORY locations! Also, remember to update remote `ELECTION_DISPLAY_STRING` and anything else you had to update in the local version. Like any tweaks/updates made to `CSV_FILE_NAMES`.
+> **NOTE:** _Only copy the_ `LANE_CONTEST_IDS` _variable_ to the `ballot/management/commands/ballot_settings.py` file on the server (as opposed to copying the entire `ballot_settings.py` file). The `local` and `remote` versions of `ballot_settings.py` have different CSV_DIRECTORY locations! Also, remember to update remote `ELECTION_DISPLAY_STRING` and anything else you had to update in the local version. Like any tweaks/updates made to `CSV_FILE_NAMES`.  
+And you will need to reload your Python code for the template string settings to appear, i.e., `touch apache/django.wsgi`.
 1. `ballot_setup` (run it remote with `LANE_CONTEST_IDS` edits that you made locally; a one-time-per-election thing)  
 
 #### One-time clean up of Measures, Races:
