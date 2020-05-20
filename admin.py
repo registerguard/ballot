@@ -22,10 +22,10 @@ class Cand_yes_noInline(admin.TabularInline):
 class ContestAdmin(admin.ModelAdmin):
     model = Contest
     inlines = [Cand_yes_noInline]
-    list_display = ('region', 'contest_wrapper', 'name', 'contestants', 'explainer_text', 'short_contest_description', 'district_category', 'print_only', 'contest_number', 'statewide', 'web_front', 'is_race',)
+    list_display = ('region', 'contest_wrapper', 'name', 'precincts', 'precincts_counted', 'contestants', 'explainer_text', 'short_contest_description', 'district_category', 'print_only', 'contest_number', 'statewide', 'web_front', 'is_race',)
     list_display_links = ('contest_wrapper',)
     list_filter = ('region', 'is_race', 'statewide', 'print_only', 'web_front', 'contest_wrapper',)
-    list_editable = ('region', 'name', 'explainer_text', 'short_contest_description', 'district_category', 'print_only', 'statewide', 'web_front', 'is_race',)
+    list_editable = ('region', 'name', 'precincts', 'precincts_counted', 'explainer_text', 'short_contest_description', 'district_category', 'print_only', 'statewide', 'web_front', 'is_race',)
     save_on_top = True
 
 admin.site.register(Contest, ContestAdmin)
